@@ -10,3 +10,6 @@ html {
 	-webkit-text-size-adjust: 100%;
 }
 
+body {
+	background: url(assets/body-top.png) repeat-x top left #f6f6f6;
+}

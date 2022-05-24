@@ -66,3 +66,16 @@ a:hover {
 .mainsection {
 	margin: 0 0 0 11em;
 }
+
+@media screen and (max-width: 550px) {
+	.sidebar {
+		width: 6em;
+		padding: 3px 0.5em 10px 0.5em;
+	}
+	.mainsection {
+		margin: 0 0 0 7em;
+	}
+	.contentsPanel {
+		width: auto;
+	}
+}
