@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <quill-editor
+        [styles]="{ height: '200px' }"
+        [modules]="editorModule"
+        (onEditorChanged)="changedEditor($event)"
+      ></quill-editor>
+    </div>
+  </div>
+  <div class="row">
+    <h3 style="text-align: left">Output</h3>
+    <div class="col-md-8">
+      <p [innerHTML]="editorText"></p>
+    </div>
+  </div>
+</div>
