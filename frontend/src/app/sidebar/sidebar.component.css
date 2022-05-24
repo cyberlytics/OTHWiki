@@ -1,0 +1,68 @@
+body {
+	margin: 0;
+}
+a {
+	background-color: transparent;
+}
+a:active,a:hover {
+	outline: 0;
+}
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+ul {
+	list-style-type: none;
+	list-style-image: none;
+	margin: 0;
+	padding: 0.3em 0 0 0;
+}
+
+img {
+	border: 0;
+	max-width: 100%;
+    padding: 3%;
+}
+
+a, a:visited {
+	color: #0645ad;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+.sidebar {
+	float: left;
+	width: 9em;
+	padding: 3px 1.5em 10px 1.3em;
+	position: absolute;
+	height: 100%;
+}
+.sidebar h3 {
+	font-size: 0.75em;
+	color: #4d4d4d;
+	font-weight: normal;
+	margin: 0.5em 0 0 0;
+	padding: 0.25em 0;
+	cursor: default;
+	border: 0;
+	border-bottom: 1px solid #D8D8D8;
+}
+.sidebar li {
+	line-height: 1.125em;
+	margin: 0;
+	padding: 0.25em 0;
+	font-size: 0.75em;
+	word-wrap: break-word;
+}
+.logo {
+	margin-bottom: 20px;
+}
+.navigation {
+	padding: 0.15em 0 0 0.45em;
+}
+.mainsection {
+	margin: 0 0 0 11em;
+}
