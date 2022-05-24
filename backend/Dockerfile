@@ -1,7 +1,7 @@
 FROM python:3.10-slim
 
 #First copy the requirments.txt and load them
-ADD ./requirements.txt .
+COPY ./requirements.txt .
 RUN python -m pip install -r requirements.txt
 
 COPY . /
