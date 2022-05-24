@@ -8,13 +8,15 @@ import { AppComponent } from './main/app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { EditorComponent } from './editor/editor.component';
+import { ArtikelComponent } from './artikel/artikel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     FooterComponent,
-    EditorComponent
+    EditorComponent,
+    ArtikelComponent
   ],
   imports: [
     BrowserModule,
