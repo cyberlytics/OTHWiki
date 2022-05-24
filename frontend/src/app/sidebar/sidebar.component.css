@@ -35,9 +35,11 @@ a:hover {
 
 .sidebar {
 	float: left;
-	width: 9em;
+	width: 11em;
 	padding: 3px 1.5em 10px 1.3em;
 	position: absolute;
+	height: 100%;
+	background-color: #f6f6f6;
 	height: 100%;
 }
 .sidebar h3 {

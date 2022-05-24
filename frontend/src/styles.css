@@ -4,12 +4,8 @@
 	font-family: "Linux Libertine";
 	src: url("fonts/LinLibertine_RZ.woff") format('woff');
 }
-html {
-	font-family: sans-serif;
-	-ms-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
-}
 
-body {
-	background: url(assets/body-top.png) repeat-x top left #f6f6f6;
-}
+
+/* body {
+	background-color: #f6f6f6;
+} */
