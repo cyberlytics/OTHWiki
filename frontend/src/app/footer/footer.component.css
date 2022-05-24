@@ -1,0 +1,13 @@
+.pagefooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-inline-start: 15em;
+    padding-bottom: 3em;
+	font-size: 75%;
+	line-height: 2em;
+}
+.pagefooter a {
+	display: inline-block;
+	margin-right: 1em;
+}
