@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -22,4 +22,4 @@ class Article(BaseModel):
     created: str
     tags: List[str]
     current_versions: int
-    old_versions: List[OldVersion]
+    old_versions: Optional[List[OldVersion]]
