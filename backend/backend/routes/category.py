@@ -1,3 +1,4 @@
+from dataclasses import asdict
 from fastapi import APIRouter
 
 from ..schemas.category import categoriesEntity, categoryEntity
@@ -20,4 +21,30 @@ async def find_all_categories():
     print(res)
     print(type(res))
     return res
+
+@router_category.delete('/categories/{id}')
+async def delete_category(id: int):
+
+    #x = conn.local.categoreis.find_one({"kategorie_id" : id})
+    #if(x == None){
+    #}
+    x = conn.local.categories.delete_one({"kategorie_id" : id})
+    return {"delted articles" : x.deleted_count, "raw_Result" : x.raw_result}
+
+
+@router_category.post('/categories/')
+async def create_category(body: Category):
+    print(body)
+    print(asdict(body))
+    #y = dict(body)
+    x = conn.local.categories.insert_one(asdict(body))
+    return asdict(body)
+
+@router_category.put('/categories/{id}')
+async def add_subcategory(HeaderCat : int, body: Category):
+    print("cat", HeaderCat)
+    print("body", body)
+    return {}
+
+
 

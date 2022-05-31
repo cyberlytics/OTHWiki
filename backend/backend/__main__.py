@@ -1,7 +1,12 @@
+from pkgutil import ImpImporter
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes.article import router_article
 from .routes.category import router_category
+from .models.category import Category
+
+from typing import ForwardRef
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -16,10 +21,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-
-
-
-
+print("test")
 @app.get("/")
 def read_root():
     return {"test" : "tst"}

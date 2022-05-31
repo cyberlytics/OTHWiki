@@ -2,6 +2,7 @@ def categoryEntity(item) -> dict:
     return{
        "id":str(item["_id"]),
         "kategorie":item["kategorie"],
+        "kategorie_id" : item["kategorie_id"],
         "subkategorien": item["subkategorien"]
     }
 
