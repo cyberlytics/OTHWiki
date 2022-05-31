@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { EditorComponent } from './editor/editor.component';
 import { ArtikelComponent } from './artikel/artikel.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ArtikelComponent } from './artikel/artikel.component';
     BrowserModule,
     AppRoutingModule,
     QuillModule.forRoot(),
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
