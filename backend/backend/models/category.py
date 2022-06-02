@@ -17,7 +17,7 @@ from pydantic.dataclasses import dataclass
 class Category():
     kategorie: str
     kategorie_id : int
-    subkategorien: Optional[List[Category]] = None
+    subkategorien: Optional[List[str]] = None
     artikel: Optional[List[str]] = None
 
 print("category")
