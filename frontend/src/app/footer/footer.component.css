@@ -6,7 +6,8 @@
     padding-bottom: 3em;
 	font-size: 75%;
 	line-height: 2em;
-    background-color: #F6F6F6;
+    background: #F6F6F6;
+    height: 80px;
 }
 .pagefooter a {
 	display: inline-block;
