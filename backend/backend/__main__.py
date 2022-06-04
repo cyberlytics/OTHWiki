@@ -1,25 +1,5 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from .routes.article import router_article
-from .routes.category import router_category
-
-app = FastAPI()
-
-app.include_router(router_category)
-app.include_router(router_article)
-
-origins = ['https://localhost:300']
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins = origins,
-    allow_credentials = True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
+import uvicorn
+from backend import config
 
 
-
-
-@app.get("/")
-def read_root():
-    return {"test" : "tst"}
+uvicorn.run('backend:app', host=config.HOST, port=config.PORT, log_level=config.LOG_LEVEL)

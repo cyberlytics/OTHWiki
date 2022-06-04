@@ -1,3 +1,5 @@
+#TODO: Richtige Schemas bauen
+
 def articleEntity(item) -> dict:
    return{
        "id":str(item["_id"]),
@@ -6,6 +8,9 @@ def articleEntity(item) -> dict:
        "artikel_text": item["artikel_text"],
        "created": item["created"],
        "tags": item["tags"],
-       "current_version": item["current_version"],
+       "current_versions": item["current_versions"],
        "old_versions": item["old_versions"],
    }
+
+def articlesEntity(entity) -> list:
+    return [articleEntity(item) for item in entity]
