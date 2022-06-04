@@ -20,5 +20,4 @@ class Category():
     subkategorien: Optional[List[str]] = None
     artikel: Optional[List[str]] = None
 
-print("category")
 Category.__pydantic_model__.update_forward_refs()
