@@ -1,0 +1,1 @@
+search.svg: https://fontawesome.com/license/free

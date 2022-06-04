@@ -7,6 +7,9 @@ import { AppRoutingModule, rountingComponents } from './app-routing.module';
 import { AppComponent } from './main/app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
+import { EditorComponent } from './editor/editor.component';
+import { ArtikelComponent } from './artikel/artikel.component';
+import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -15,6 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     SidebarComponent,
     FooterComponent,
+    EditorComponent,
+    ArtikelComponent,
+    HeaderComponent,
     rountingComponents
   ],
   imports: [
