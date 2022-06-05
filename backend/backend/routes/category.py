@@ -1,11 +1,10 @@
-from dataclasses import asdict
-from fastapi import APIRouter
 import pymongo
+from dataclasses import asdict
+from fastapi import APIRouter, Response,status
+from bson.objectid import ObjectId
 
-from ..schemas.category import categoriesEntity, categoryEntity
-from ..models.category import Category
-from ..database import conn
-
+from backend.models.category import Category
+from backend.database import conn
 from backend import config
 
 router_category = APIRouter()
@@ -13,51 +12,121 @@ router_category = APIRouter()
 db_categories = conn[config.DB_NAME].categories
 
 
-@router_category.get('/categories/{name}', tags=["Kategorien"])
-async def find_category_by_name(name: str):
-    #TODO: In Object Parsen
-    x = db_categories.find_one({"kategorie" : name}, {"_id": 0})
-    return x
+def get_category_by_id(obj_id:str):
+    try:
+        return db_categories.find_one({'_id':ObjectId(obj_id)})
+    except:
+        return None
 
-@router_category.get('/categories/', response_model=list[Category], tags=["Kategorien"])
+def get_cateory_by_name(name:str): 
+    return db_categories.find_one({'kategorie':name})
+
+@router_category.get('/categories', tags=["Kategorien"])
 async def find_all_categories():
-    x = db_categories.find()
+    """Get all Kategories from DB and created a nested dict from them"""
+    all_kat = list(db_categories.find())
+    kategories_tree = []
+    
+    #convert all objectIds to str, to avoid any TypeConflicts
+    for kat in all_kat:
+        kat['_id'] = str(kat['_id'])
+    #add all categories that have None as parent
+    for kat in all_kat:
+        if kat['parent_kategorie'] is None:
+            kategories_tree.append(get_obj_with_childs(kat,all_kat))
+    return kategories_tree
 
-    #list constructor frist dicts nicht list(x)
-    lst = []
-    for y in x:
-        lst.append(y)
-    return lst
+def get_obj_with_childs(obj:dict,all_kats:list):
+    """Recursive function that creates a nested dict, where all subkategories are included
 
-@router_category.delete('/categories/{id}', tags=["Kategorien"])
-async def delete_category(id: int):
-    x = db_categories.delete_one({"kategorie_id" : id})
-    return {"delted articles" : x.deleted_count, "raw_Result" : x.raw_result}
+    Args:
+        obj (dict): Category object
+        all_kats (list): List with all Categories that were exctracted from the DB
 
+    Returns:
+        dict: nested dict with all subkategories
+    """
+    output = {
+        '_id':obj['_id'],
+        'kategorie':obj['kategorie'],
+        'subkategorien':[],
+        'artikel':[]
+    }
+    for child in obj['subkategorien']:
+        for kat in all_kats:
+            if child == kat['_id']:
+                output['subkategorien'].append(get_obj_with_childs(kat,all_kats)) 
+    return output  
 
-@router_category.post('/categories/', tags=["Kategorien"])
+@router_category.post('/categories', tags=["Kategorien"])
 async def create_category(body: Category):
-    print(body)
-    print(asdict(body))
-    x = db_categories.insert_one(asdict(body))
-    return asdict(body)
+    """Create a Category in the DB.
+    If a parent_id war provided, check if it exists and update parent obj if needed
 
-@router_category.put('/categories/{id}', tags=["Kategorien"])
-async def add_subcategory(id : int, subcat: int):
-    x = db_categories.find_one({"kategorie_id" : id}, {"_id" : 0})
-    print(x)
-    print("old", x["subkategorien"])
-    newsub = []
-    if(x["subkategorien"] is not None):
-        newsub = x["subkategorien"]
-        newsub.append(subcat)
-    else:
-        newsub = [subcat]
-    x = db_categories.update_one(
-    {"kategorie_id" : id},
-    {"$set" : {"subkategorien" : newsub}}
-    )
-    return x.raw_result
+    Args:
+        body (Category): Category-Object. Will be parsed by pydantic
+    """
+    #If the referenced parent doesn't exist, set parent to None
+    parent_kat = body.parent_kategorie  
+    parent = get_category_by_id(parent_kat)
+    if parent is None:
+        body.parent_kategorie = None
+
+    #Insert object in db
+    obj = db_categories.insert_one(asdict(body))
+    
+    #update parent if exists
+    #we need to do this after the insert, so that we have the id of the child category
+    if parent is not None:
+        db_categories.update_one({'_id':ObjectId(parent_kat)}, {"$addToSet":{'subkategorien':str(obj.inserted_id)}})
+    return f'Category was created successfully with ID {obj.inserted_id}'
+
+
+@router_category.get('/categories/{name_or_id}', tags=["Kategorien"])
+async def find_category_by_name(name_or_id: str,response:Response):
+    """Search for a category by name or by id 
+
+    Args:
+        name_or_id (str): Id or Name of the category
+    """
+    #if parameter can be parsed as an bson.ObjectId, then search by id
+    try:
+        _ = ObjectId(name_or_id)
+        kat = get_category_by_id(name_or_id) 
+    #otherwise search by name
+    except:
+        kat = get_cateory_by_name(name_or_id)
+    if kat is not None:
+        #bson.ObjectId needs to be converted to str, otherwise this will result in a TypeError
+        kat['_id']=str(kat['_id'])
+        return kat
+    #if no object was found, return with a 400 
+    response.status_code = status.HTTP_400_BAD_REQUEST
+    return "No Object found"
+
+
+@router_category.delete('/categories/{obj_id}', tags=["Kategorien"])
+async def delete_category(obj_id: str):
+    """Delete a category by id. All child categories will be moved upwards
+
+    Args:
+        id (int): Id of the category to delete
+    """
+    try:
+        #get object and add children to parent 
+        obj = get_category_by_id(obj_id)
+        parent = obj['parent_kategorie']
+        children = obj['subkategorien']
+        db_categories.update_one(
+            {'_id':ObjectId(parent)},
+            {"$addToSet":{'subkategorien':{"$each":children}}}
+        )
+
+        #delete it 
+        _ = db_categories.delete_one({"_id" : ObjectId(obj_id)})
+    finally:
+        return f"Category with id {obj_id} was deleted"
+
 
 
 

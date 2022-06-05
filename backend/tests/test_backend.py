@@ -46,22 +46,116 @@ def test_base_path():
 ##############################################
 def test_category_route_empty():
     """No category is existing, thus an empyt object should be returned"""
-    response = client.get('/categories/')
+    response = client.get('/categories')
     assert response.status_code == 200
     assert response.json() == []
 
-def test_insert_category1():
+
+def test_insert_and_delete_category():
     """Test that a category was created successfully and is available in DB"""
     #create category
-    response = client.post('/categories/', json = category_examples.category1)
+    response = client.post('/categories', json = category_examples.category)
     assert response.status_code ==200
     
     #check that it's available
-    response = client.get('/categories/')
+    response = client.get('/categories')
     assert response.status_code == 200
-    assert len(response.json()) == 1
-    #check if optional fields were added 
-    #assert response.json() == [category_examples.category1_after_insert]
+    assert len(response.json()) == 1 
+    assert response.json()[0]['kategorie'] == category_examples.category['kategorie']
+
+    #try to find it by ID
+    obj_id = response.json()[0]['_id']
+    response = client.get(f'/categories/{obj_id}')
+    assert response.status_code == 200
+    assert response.json()['kategorie'] == category_examples.category['kategorie']
+
+    #delete cat
+    response = client.delete(f'/categories/{obj_id}')
+    assert response.status_code == 200
+    assert response.json() == f"Category with id {obj_id} was deleted"
+
+    #check that no cat is left 
+    response = client.get('/categories')
+    assert response.status_code == 200
+    assert response.json() == []
+
+    #check that id was also deleted 
+    response = client.get(f'/categories/{obj_id}')
+    assert response.status_code == 400
+    assert response.json() == "No Object found"
+
+
+def test_insert_category_list():
+    """Insert multiple categories on a flat hierarchy"""
+    #insert multiple categories
+    id_list = []
+    for kategorie in category_examples.category_list:
+        response = client.post('/categories', json = {"kategorie": kategorie})
+        assert response.status_code == 200
+        assert response.json().startswith("Category was created successfully with ID ")
+        id_list.append(response.json().replace("Category was created successfully with ID ",""))
+    #check if all are saved in DB
+    response = client.get('/categories')
+    assert response.status_code == 200
+    #len should be the length of the inserted list + 1 from the test before
+    assert len(response.json()) ==  len(category_examples.category_list)
+
+    #delete all categories
+    for kat_id in id_list:
+        response = client.delete(f'/categories/{kat_id}')
+        assert response.status_code == 200
+        assert response.json() == f"Category with id {kat_id} was deleted"
+
+    #check that no cat is left 
+    response = client.get('/categories')
+    assert response.status_code == 200
+    assert response.json() == []
+
+
+def test_insert_nested_categories():
+    """Insert Nested Categories"""
+    #the id_list is used for setting the next parent (and deleting every categorie after the test)
+    #The parent of the first cat is non existent, thus we can use a random string and also test how it handles the corrupt data
+    id_list = ['randomStringForFirstInsert']
+    for kategorie in category_examples.category_list:
+        response = client.post('/categories', json = {"kategorie": kategorie,
+                                            'parent_kategorie':id_list[-1]})
+        
+        assert response.status_code == 200
+        assert response.json().startswith("Category was created successfully with ID ")
+        id_list.append(response.json().replace("Category was created successfully with ID ",""))
+
+    #len should be only 1, because the other categories are nested inside them
+    response = client.get('/categories')
+    assert response.status_code == 200
+    assert len(response.json()) == 1 
+    
+    #check the tree structure
+    assert response.json()[0]['kategorie'] == category_examples.category_list[0]
+    assert response.json()[0]['subkategorien'][0]['kategorie'] == category_examples.category_list[1]
+    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == category_examples.category_list[2]
+    #...
+    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == category_examples.category_list[4]
+
+    #delete category from the middle 
+    response = client.delete(f'/categories/{id_list[3]}')
+    assert response.status_code == 200
+    assert response.json() == f"Category with id {id_list[3]} was deleted"
+
+    #check that the last element moved upwards
+    #which means that one ['subkategorien'][0] is gone :D
+    response = client.get('/categories')
+    assert response.status_code == 200
+    assert len(response.json()) == 1 
+    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == category_examples.category_list[4]
+
+    #delete all other categories
+    for kat_id in id_list:
+        response = client.delete(f'/categories/{kat_id}')
+    #check that no cat is left 
+    response = client.get('/categories')
+    assert response.status_code == 200
+    assert response.json() == []
 
 ##############################################
 #--------------ARTICLE ROUTES-----------------
