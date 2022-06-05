@@ -1,45 +1,134 @@
 from dataclasses import asdict
-from fastapi import APIRouter
+from fastapi import APIRouter,Response,status, Request
+from bson.objectid import ObjectId
+import json
+from datetime import datetime
 
-#from backend.backend.models.category import Category
-
-from ..models.article import Article
-from ..database import conn
-from ..schemas.article import articleEntity, articlesEntity
-
+from backend.models.article import Article
+from backend.routes.category import db_categories,get_category_by_id
+from backend.database import conn
 from backend import config
 
-import json
 
 router_article = APIRouter()
 
 #create direct reference to the table in use
 db_articles = conn[config.DB_NAME].articles
 
-@router_article.get('/articles', response_model=list[Article], tags=["Artikel"])
-async def find_all_articles():
-    #TODO: in Objekt paresen
-    #return {'ar' : 'ar'}
-    x = db_articles.find()
+def append_article_to_category(article_id:str, article_name:str ,cat_id:str, update:bool = False):
+    """Append the article_id with the article name to the corresponding category object
 
-    lst = []
-    for y in x:
-        lst.append(y)
-    return lst
+    Args:
+        article_id (str): Id of the new article
+        article_name (str): Name of the new article
+        cat_id (str): Id of the category object
+        update (bool, optional): If an article got updated, maybe only the name changed. Defaults to False.
+    """
+    obj = {
+        'artikel_name': article_name,
+        'artikel_id'  : article_id
+    }
+    db_categories.update_one({'_id':ObjectId(cat_id)}, {"$addToSet":{'artikel':obj}})
 
-@router_article.get('/articles/{id}/{version}', tags=["Artikel"])
-async def get_article_by_version_and_id(id: str, version: int):
-    x = db_articles.find_one({"artikel_id" : id, "current_versions" : version})
-    print(articleEntity(x))
-    return articleEntity(x)
+def get_article_by_id(article_id:str):
+    try:
+        return db_articles.find_one({'_id':ObjectId(article_id)})
+    except:
+        return None
 
-@router_article.post('/articles/', tags=["Artikel"])
+@router_article.post('/articles', tags=["Artikel"])
 async def create_new_article(payload: Article):
-    print(payload)
-    x = db_articles.insert_one(asdict(payload))
-    return asdict(payload)
+    """Create an Artikel in the DB.
 
-@router_article.delete('/article/{id}', tags=["Artikel"])
-async def delete_article(id : str):
-    x = db_articles.delete_one({"artikel_id" : id})
-    return {"delted articles" : x.deleted_count, "raw_Result" : x.raw_result}
+    Args:
+        body (Category): Artikel-Object. Will be parsed by pydantic
+    """
+    #check if provided kategorie exists
+    parent_kategorie = get_category_by_id(payload['kategorie'])
+    if parent_kategorie is None:
+        payload['kategorie'] = None 
+
+    #insert artikel
+    obj = db_articles.insert_one(asdict(payload))
+    
+    #append to category after we got the id
+    if parent_kategorie is not None:
+        append_article_to_category(article_id = str(obj.inserted_id),
+                                article_name = payload['artikel_name'],
+                                cat_id = parent_kategorie)
+    return f'Article was created successfully with ID {obj.inserted_id}'
+
+
+@router_article.post('/articles/update', tags=["Artikel"])
+async def get_article_by_id(request:Request, response:Response):
+    """Update an Artikle"""
+    #get the data from the request
+    data = request.json()
+    #check if required fields were provided
+    required_fields = ['_id','artikel_name','artikel_text']
+    if not all(required_field in data for required_field in required_fields):
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return "Not all necessary fields were required"
+    #get old article object 
+    obj = get_article_by_id(data['_id'])
+    if obj == None:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return "No article found to be updated"
+    old_data = {
+        'artikel_name':obj['artikel_name'],
+        'artikel_text':obj['artikel_text'],
+        'artikel_version': obj['artikel_version']    
+    }
+    #tags are optional field for the update
+    tags = data['tags'] if 'tags' in data else obj['tags']
+    update_object ={
+        'artikel_name':data['artikel_name'],
+        'artikel_text':data['artikel_text'],
+        'current_version': obj['current_version'] +1,
+        'created': datetime.utcnow(),
+        'tags':tags
+    }
+    #update
+    db_articles.update_one({"_id": ObjectId(data['_id'])},{"$set":update_object})
+    db_articles.update_one({"_id": ObjectId(data['_id'])},{"$addToSet":{'old_versions':old_data }})
+    
+    return "Article updated successfully"
+    
+    
+
+
+@router_article.delete('/article/{article_id}', tags=["Artikel"])
+async def delete_article(article_id: str):
+    """Deletes an article from DB
+
+    Args:
+        article_id (srt): id of the artikel
+    """
+    try:
+        obj = get_article_by_id(article_id)
+        cateory = obj['kategorie']
+        db_categories.update_one(
+            {'_id':ObjectId(cateory)},
+            {"$pull":{'artikel':article_id}}
+        )    
+        _ = db_articles.delete_one({"_id" : ObjectId(article_id)})
+    finally:
+        return f"Article with id {article_id} was deleted"
+
+@router_article.get('/articles/{article_id}', tags=["Artikel"])
+async def get_article_by_id(article_id: str, response:Response):
+    """Return an article by its id
+
+    Args:
+        article_id (str): ID of the article
+    """
+    try:
+        obj = db_articles.find_one({"_id" : ObjectId(article_id)})
+        obj['_id'] = str(obj['_id'])
+        return obj
+    except:
+        #if no object was found, return with a 400 
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return "No Object found"
+
+
