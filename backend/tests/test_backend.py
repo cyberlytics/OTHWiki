@@ -1,6 +1,6 @@
 import backend
 from backend import config
-from tests import category_examples
+from tests import examples
 
 import pytest
 import pymongo
@@ -54,20 +54,20 @@ def test_category_route_empty():
 def test_insert_and_delete_category():
     """Test that a category was created successfully and is available in DB"""
     #create category
-    response = client.post('/categories', json = category_examples.category)
+    response = client.post('/categories', json = examples.category)
     assert response.status_code ==200
     
     #check that it's available
     response = client.get('/categories')
     assert response.status_code == 200
     assert len(response.json()) == 1 
-    assert response.json()[0]['kategorie'] == category_examples.category['kategorie']
+    assert response.json()[0]['kategorie'] == examples.category['kategorie']
 
     #try to find it by ID
     obj_id = response.json()[0]['_id']
     response = client.get(f'/categories/{obj_id}')
     assert response.status_code == 200
-    assert response.json()['kategorie'] == category_examples.category['kategorie']
+    assert response.json()['kategorie'] == examples.category['kategorie']
 
     #delete cat
     response = client.delete(f'/categories/{obj_id}')
@@ -89,7 +89,7 @@ def test_insert_category_list():
     """Insert multiple categories on a flat hierarchy"""
     #insert multiple categories
     id_list = []
-    for kategorie in category_examples.category_list:
+    for kategorie in examples.category_list:
         response = client.post('/categories', json = {"kategorie": kategorie})
         assert response.status_code == 200
         assert response.json().startswith("Category was created successfully with ID ")
@@ -98,7 +98,7 @@ def test_insert_category_list():
     response = client.get('/categories')
     assert response.status_code == 200
     #len should be the length of the inserted list + 1 from the test before
-    assert len(response.json()) ==  len(category_examples.category_list)
+    assert len(response.json()) ==  len(examples.category_list)
 
     #delete all categories
     for kat_id in id_list:
@@ -117,7 +117,7 @@ def test_insert_nested_categories():
     #the id_list is used for setting the next parent (and deleting every categorie after the test)
     #The parent of the first cat is non existent, thus we can use a random string and also test how it handles the corrupt data
     id_list = ['randomStringForFirstInsert']
-    for kategorie in category_examples.category_list:
+    for kategorie in examples.category_list:
         response = client.post('/categories', json = {"kategorie": kategorie,
                                             'parent_kategorie':id_list[-1]})
         
@@ -131,11 +131,11 @@ def test_insert_nested_categories():
     assert len(response.json()) == 1 
     
     #check the tree structure
-    assert response.json()[0]['kategorie'] == category_examples.category_list[0]
-    assert response.json()[0]['subkategorien'][0]['kategorie'] == category_examples.category_list[1]
-    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == category_examples.category_list[2]
+    assert response.json()[0]['kategorie'] == examples.category_list[0]
+    assert response.json()[0]['subkategorien'][0]['kategorie'] == examples.category_list[1]
+    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == examples.category_list[2]
     #...
-    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == category_examples.category_list[4]
+    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == examples.category_list[4]
 
     #delete category from the middle 
     response = client.delete(f'/categories/{id_list[3]}')
@@ -147,7 +147,7 @@ def test_insert_nested_categories():
     response = client.get('/categories')
     assert response.status_code == 200
     assert len(response.json()) == 1 
-    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == category_examples.category_list[4]
+    assert response.json()[0]['subkategorien'][0]['subkategorien'][0]['subkategorien'][0]['kategorie'] == examples.category_list[4]
 
     #delete all other categories
     for kat_id in id_list:
@@ -160,9 +160,19 @@ def test_insert_nested_categories():
 ##############################################
 #--------------ARTICLE ROUTES-----------------
 ##############################################
-def test_insert_article():
+def test_insert_and_delete_article():
     """Test that an articel was created successfully"""
-    pass
+    #create a category that will hold the articles
+    response = client.post('/categories', json = examples.category)
+    assert response.status_code ==200
+    assert response.json().startswith("Category was created successfully with ID ")
+    category_id = response.json().replace("Category was created successfully with ID ","")
+
+    article_data = examples.article
+    article_data['category'] = category_id
+
+    #TODO
+
 
 ##############################################
 #----------------TEARDOWN---------------------
