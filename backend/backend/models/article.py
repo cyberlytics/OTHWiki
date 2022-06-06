@@ -15,9 +15,17 @@ class Article():
     artikel_name: str
     artikel_text: str
     kategorie: str
-    current_versions: Optional[int] = 1
-    created: Optional[str] = datetime.utcnow()
+    current_version: Optional[int] = 1
+    created: Optional[datetime] = datetime.utcnow()
     tags: Optional[List[str]] = Field(default_factory=list)
     old_versions: Optional[List[OldVersion]] = Field(default_factory=list)
 
-#Article.__pydantic_model__.update_forward_refs()
+
+@dataclass
+class UpdateArticle():
+    artikel_id:str
+    artikel_name: str
+    artikel_text: str
+    tags: Optional[List[str]] = None
+
+Article.__pydantic_model__.update_forward_refs()

@@ -3,8 +3,9 @@ from fastapi import APIRouter,Response,status, Request
 from bson.objectid import ObjectId
 import json
 from datetime import datetime
+from typing import Dict
 
-from backend.models.article import Article
+from backend.models.article import Article,UpdateArticle
 from backend.routes.category import db_categories,get_category_by_id
 from backend.database import conn
 from backend import config
@@ -24,6 +25,11 @@ def append_article_to_category(article_id:str, article_name:str ,cat_id:str, upd
         cat_id (str): Id of the category object
         update (bool, optional): If an article got updated, maybe only the name changed. Defaults to False.
     """
+    #if update is true, remove article with specified id first, then add the new one again
+    if update:
+        db_categories.update_one({'_id':ObjectId(cat_id)}, 
+        {"$pull":{'artikel':{'artikel_id':article_id}}})
+
     obj = {
         'artikel_name': article_name,
         'artikel_id'  : article_id
@@ -37,67 +43,64 @@ def get_article_by_id(article_id:str):
         return None
 
 @router_article.post('/articles', tags=["Artikel"])
-async def create_new_article(payload: Article):
+async def create_new_article(body: Article):
     """Create an Artikel in the DB.
 
     Args:
         body (Category): Artikel-Object. Will be parsed by pydantic
     """
     #check if provided kategorie exists
-    parent_kategorie = get_category_by_id(payload['kategorie'])
+    parent_kategorie = get_category_by_id(body.kategorie)
     if parent_kategorie is None:
-        payload['kategorie'] = None 
+        body['kategorie'] = None 
 
     #insert artikel
-    obj = db_articles.insert_one(asdict(payload))
+    obj = db_articles.insert_one(asdict(body))
     
     #append to category after we got the id
     if parent_kategorie is not None:
         append_article_to_category(article_id = str(obj.inserted_id),
-                                article_name = payload['artikel_name'],
-                                cat_id = parent_kategorie)
+                                article_name = body.artikel_name,
+                                cat_id = body.kategorie)
+    
     return f'Article was created successfully with ID {obj.inserted_id}'
 
 
 @router_article.post('/articles/update', tags=["Artikel"])
-async def get_article_by_id(request:Request, response:Response):
+async def update_article(body: UpdateArticle):
     """Update an Artikle"""
-    #get the data from the request
-    data = request.json()
-    #check if required fields were provided
-    required_fields = ['_id','artikel_name','artikel_text']
-    if not all(required_field in data for required_field in required_fields):
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return "Not all necessary fields were required"
     #get old article object 
-    obj = get_article_by_id(data['_id'])
+    obj = get_article_by_id(body.artikel_id)
     if obj == None:
-        response.status_code = status.HTTP_400_BAD_REQUEST
+        #response.status_code = status.HTTP_400_BAD_REQUEST
         return "No article found to be updated"
     old_data = {
         'artikel_name':obj['artikel_name'],
         'artikel_text':obj['artikel_text'],
-        'artikel_version': obj['artikel_version']    
+        'artikel_version': obj['current_version']    
     }
-    #tags are optional field for the update
-    tags = data['tags'] if 'tags' in data else obj['tags']
+    #tags are optional field for the update. If none were provided, take the old ones
+    if body.tags is None:
+        body.tags = obj['tags']
     update_object ={
-        'artikel_name':data['artikel_name'],
-        'artikel_text':data['artikel_text'],
+        'artikel_name':body.artikel_name,
+        'artikel_text':body.artikel_text,
         'current_version': obj['current_version'] +1,
         'created': datetime.utcnow(),
-        'tags':tags
+        'tags':body.tags
     }
     #update
-    db_articles.update_one({"_id": ObjectId(data['_id'])},{"$set":update_object})
-    db_articles.update_one({"_id": ObjectId(data['_id'])},{"$addToSet":{'old_versions':old_data }})
+    db_articles.update_one({"_id": ObjectId(body.artikel_id)},{"$set":update_object})
+    db_articles.update_one({"_id": ObjectId(body.artikel_id)},{"$addToSet":{'old_versions':old_data }})
     
+    #update_artikelname in category
+    append_article_to_category(article_id=str(obj['_id']), article_name=body.artikel_name,
+                                cat_id = obj['kategorie'] , update = True)
+
     return "Article updated successfully"
-    
-    
 
 
-@router_article.delete('/article/{article_id}', tags=["Artikel"])
+@router_article.delete('/articles/{article_id}', tags=["Artikel"])
 async def delete_article(article_id: str):
     """Deletes an article from DB
 
@@ -109,14 +112,14 @@ async def delete_article(article_id: str):
         cateory = obj['kategorie']
         db_categories.update_one(
             {'_id':ObjectId(cateory)},
-            {"$pull":{'artikel':article_id}}
+            {"$pull":{'artikel':{'artikel_id':article_id}}}
         )    
         _ = db_articles.delete_one({"_id" : ObjectId(article_id)})
     finally:
         return f"Article with id {article_id} was deleted"
 
 @router_article.get('/articles/{article_id}', tags=["Artikel"])
-async def get_article_by_id(article_id: str, response:Response):
+async def get_article_by_id_route(article_id: str, response:Response):
     """Return an article by its id
 
     Args:

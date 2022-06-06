@@ -1,7 +1,9 @@
+import re
 import backend
 from backend import config
 from tests import examples
 
+import time
 import pytest
 import pymongo
 from fastapi import FastAPI
@@ -21,8 +23,10 @@ def setup_module(module):
     backend.database.conn['test_table'].categories.drop()
 
     print("Setting the DB Table to 'test_table'")
-    backend.article_routes.db_articles = backend.database.conn['test_table'].articles
     backend.category_routes.db_categories= backend.database.conn['test_table'].categories
+
+    backend.article_routes.db_articles = backend.database.conn['test_table'].articles
+    backend.article_routes.db_categories = backend.database.conn['test_table'].categories
 
 ##############################################
 #----------------BASIC TESTS------------------
@@ -160,7 +164,7 @@ def test_insert_nested_categories():
 ##############################################
 #--------------ARTICLE ROUTES-----------------
 ##############################################
-def test_insert_and_delete_article():
+def test_insert_update_and_delete_article():
     """Test that an articel was created successfully"""
     #create a category that will hold the articles
     response = client.post('/categories', json = examples.category)
@@ -168,10 +172,64 @@ def test_insert_and_delete_article():
     assert response.json().startswith("Category was created successfully with ID ")
     category_id = response.json().replace("Category was created successfully with ID ","")
 
+    #insert article
     article_data = examples.article
-    article_data['category'] = category_id
+    article_data['kategorie'] = category_id
+    response = client.post('/articles', json =article_data)
+    assert response.status_code == 200
+    assert response.json().startswith("Article was created successfully with ID ")
+    article_id = response.json().replace("Article was created successfully with ID ","")
 
-    #TODO
+    #check that article is included in the category
+    response = client.get(f'/categories/{category_id}')
+    assert response.status_code == 200
+    assert response.json()['artikel'][0] == {'artikel_name':examples.article['artikel_name'],'artikel_id':article_id}
+
+    #update article
+    update_data = examples.article_update
+    update_data['artikel_id'] = article_id
+    response = client.post('/articles/update',json =update_data)
+    assert response.status_code == 200
+    assert response.json() == "Article updated successfully"
+
+    #check if article changed correctly
+    response = client.get(f'/articles/{article_id}')
+    assert response.status_code == 200
+    assert response.json()['_id'] == article_id
+    assert response.json()['artikel_name'] == update_data['artikel_name']
+    assert response.json()['artikel_text'] == update_data['artikel_text']
+    assert response.json()['tags'] == update_data['tags']
+    assert response.json()['current_version'] == 2
+    assert response.json()['old_versions'][0] == {
+                        'artikel_name': examples.article['artikel_name'],
+                        'artikel_text': examples.article['artikel_text'],
+                        'artikel_version' : 1
+                        } 
+
+    #check that article name got changed in categories
+    response = client.get(f'/categories/{category_id}')
+    assert response.status_code == 200
+    assert response.json()['artikel'][0] == {'artikel_name':examples.article_update['artikel_name'],'artikel_id':article_id}
+
+    #delete articles
+    response = client.delete(f'/articles/{article_id}')
+    assert response.status_code == 200
+    assert response.json() == f"Article with id {article_id} was deleted"
+
+    #check that article couldnt be found after delete 
+    response = client.get(f'/articles/{article_id}')
+    assert response.status_code == 400
+    assert response.json() == "No Object found"
+
+    #check that article got removed in category 
+    response = client.get(f'/categories/{category_id}')
+    assert response.status_code == 200
+    assert len(response.json()['artikel']) == 0
+
+    #remove category to not interfere with other tests
+    response = client.delete(f'/categories/{category_id}')
+    assert response.status_code == 200
+    assert response.json() == f"Category with id {category_id} was deleted"
 
 
 ##############################################
