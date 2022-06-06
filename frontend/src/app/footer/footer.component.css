@@ -8,9 +8,35 @@
 	line-height: 2em;
     background: #F6F6F6;
     height: 80px;
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 30px;
 }
 .pagefooter a {
 	display: inline-block;
 	margin-right: 1em;
 }
 
+a:active,a:hover {
+	outline: 0;
+	color: #A16200 !important;
+}
+
+a, a:visited {
+	color: #F29400;
+	text-decoration: none;
+	font-family: sans-serif;
+}
+
+/*Überschreibt Bootstrap*/
+#bootstrap-overrides a:active,a:hover { 
+	outline: 0;
+	color: #A16200;
+  }
+
+  #bootstrap-overrides a, a:visited{ 
+	color: #F29400;
+	text-decoration: none;
+	font-family: sans-serif;
+  }
+/*End Überschreibt Bootstrap*/
