@@ -15,7 +15,8 @@ article={
   'artikel_text':'Hier könnte ein langer Text stehen',
   'tags':['tag1','tag2','tag3']
 }
-articel_update={
+
+article_update={
   'artikel_name':'anderer Artikelname',
   'artikel_text':'anderer Artikeltext',
   'tags':['anderes_tag']

@@ -11,7 +11,6 @@ router_category = APIRouter()
 #create direct reference to the table in use
 db_categories = conn[config.DB_NAME].categories
 
-
 def get_category_by_id(obj_id:str):
     try:
         return db_categories.find_one({'_id':ObjectId(obj_id)})
