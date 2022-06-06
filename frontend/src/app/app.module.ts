@@ -11,6 +11,7 @@ import { EditorComponent } from './editor/editor.component';
 import { ArtikelComponent } from './artikel/artikel.component';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     EditorComponent,
     ArtikelComponent,
     HeaderComponent,
-    rountingComponents
+    rountingComponents,
+    ScrollToTopComponent
   ],
   imports: [
     BrowserModule,
