@@ -691,3 +691,11 @@ span.user {
 		display: none;
 	}
 }
+
+ /*Tablet & Mobile*/
+ @media screen and (max-width: 980px) {
+	.mainsection {
+		margin: 0 ;
+	}
+}
+

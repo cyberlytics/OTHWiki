@@ -40,3 +40,12 @@ a, a:visited {
 	font-family: sans-serif;
   }
 /*End Überschreibt Bootstrap*/
+
+
+ /*Tablet & Mobile*/
+ @media screen and (max-width: 980px) {
+
+	.pagefooter {
+		padding-inline-start: 0;
+	}
+}

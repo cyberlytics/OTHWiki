@@ -40,6 +40,7 @@ a, a:visited {
 	height: 100%;
 	background-color: #f6f6f6;
 	height: 100%;
+	visibility: visible;
 }
 .sidebar h3 {
 	font-size: 0.75em;
@@ -73,10 +74,15 @@ a, a:visited {
 		width: 6em;
 		padding: 3px 0.5em 10px 0.5em;
 	}
-	.mainsection {
-		margin: 0 0 0 7em;
-	}
+	
 	.contentsPanel {
 		width: auto;
+	}
+}
+
+ /*Tablet & Mobile*/
+ @media screen and (max-width: 980px) {
+	.sidebar{
+		visibility: hidden;
 	}
 }
