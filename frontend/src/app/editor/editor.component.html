@@ -1,23 +1,18 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <quill-editor
-        [styles]="{ height: '300px' }"
-        [modules]="editorModule"
-        (onEditorChanged)="changedEditor($event)"
-      ></quill-editor>
+<div class="c">
+  <div class="article">
 
-    </div>
+      <div class="col-md-12">
+        <quill-editor [styles]="{ height: '300px' }" [modules]="editorModule" (onEditorChanged)="changedEditor($event)" [(ngModel)]="oldText">
+        </quill-editor>
+      </div>
+      <div>
+        <h3 style="text-align: left">Output</h3>
+      </div>
+      <div class="col-md-8">
+        <quill-view-html [innerHTML]="editorText"></quill-view-html>
+      </div>
+    <nav>
+      <a routerLink="/artikel">Save Article</a>
+    </nav>
   </div>
-  <div class="row">
-    <div>
-    <h3 style="text-align: left">Output</h3>
-  </div>
-    <div class="col-md-8">
-      <quill-view-html [innerHTML]="editorText"></quill-view-html>
-    </div>
-  </div>
-  <nav>
-    <a routerLink="/artikel">Save Article</a>
-  </nav>
 </div>

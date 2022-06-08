@@ -40,3 +40,9 @@ a, a:visited {
 	font-family: sans-serif;
   }
 /*End Überschreibt Bootstrap*/
+
+@media screen and (max-width: 550px) {
+	.pagefooter {
+		padding: 3px 0.5em 10px 0.5em;
+	}
+}

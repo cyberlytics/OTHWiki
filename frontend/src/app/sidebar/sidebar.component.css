@@ -39,7 +39,7 @@ a, a:visited {
 	position: absolute;
 	height: 100%;
 	background-color: #f6f6f6;
-	height: 100%;
+	height: 100vh;
 }
 .sidebar h3 {
 	font-size: 0.75em;
@@ -64,17 +64,11 @@ a, a:visited {
 .navigation {
 	padding: 0.15em 0 0 0.45em;
 }
-.mainsection {
-	margin: 0 0 0 11em;
-}
 
 @media screen and (max-width: 550px) {
 	.sidebar {
 		width: 6em;
 		padding: 3px 0.5em 10px 0.5em;
-	}
-	.mainsection {
-		margin: 0 0 0 7em;
 	}
 	.contentsPanel {
 		width: auto;

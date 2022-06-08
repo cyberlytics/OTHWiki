@@ -361,9 +361,9 @@ p.siteSub {
 	font-size: 92%;
 }
 
-body {
+/* body {
 	background: url(../../assets/body-top.png) repeat-x top left #f6f6f6;
-}
+} */
 
 ul {
 	list-style-type: none;
@@ -416,7 +416,7 @@ div.articleRightInner {
 
 .mainsection {
 	margin: 0 0 0 11em;
-	min-height: calc(100vh - 80px);
+	min-height: calc(100vh - 80px - 200px);
 }
 
 .headerLinks {
@@ -581,32 +581,6 @@ span.user {
 
 }
 
-.lavenderBox {
-	background: #fdfdfd;
-	border: 1px solid #a2a9b1;
-	clear: both;
-	font-size: 88%;
-	text-align: center;
-	padding: 3px;
-	line-height: 1.7em;
-	margin: 1em auto 0;
-}
-
-.lavenderBox .header {
-	background: #ccccff;
-	padding: 0.25em 1em;
-	line-height: 1.5em;
-	text-align: center;
-	font-weight: bold;
-	color: #0645ad;
-	font-size: 115%;
-	margin-bottom: 3px;
-}
-
-.lavenderBox .subtitle {
-	background: #ddddff;
-}
-
 .categories {
 	border: 1px solid #A16200;
 	background-color: #f8f9fa;
@@ -660,22 +634,6 @@ span.user {
 /*End Überschreibt Bootstrap*/
 
 
-@media screen and (max-width: 850px) {
-	#searchInput {
-		width: 110px;
-	}
-
-	#simpleSearch {
-		width: 138px;
-	}
-}
-
-@media screen and (max-width: 700px) {
-	.tabsRight {
-		display: none;
-	}
-}
-
 @media screen and (max-width: 550px) {
 	.mainsection {
 		margin: 0 0 0 7em;
@@ -683,11 +641,5 @@ span.user {
 
 	.contentsPanel {
 		width: auto;
-	}
-}
-
-@media screen and (max-width: 400px) {
-	#simpleSearch {
-		display: none;
 	}
 }
