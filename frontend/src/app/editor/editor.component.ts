@@ -15,12 +15,11 @@ export class EditorComponent implements OnInit {
 
   title = 'frontend';
   editorText = '';
-  rawText = '';
+  oldText = 'Input Artikel Placeholder';
 
   changedEditor(event: EditorChangeContent | EditorChangeSelection){
     console.log(event);
     this.editorText = event['editor']['root']['innerHTML'];
-    this.rawText = event['editor']['root']['innerText'];
   }
 
   editorModule = {

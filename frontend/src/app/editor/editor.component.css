@@ -1,13 +1,21 @@
-.container {
+.c {
     margin: 0 0 0 11em;
-    padding-top: 5%;
-    padding-right: 5%;
-	min-height: calc(100vh - 80px);
+	/* min-height: calc(100vh - 80px - 120px); */
+}
+
+.article {
+	background: #FFF;
+	line-height: 1.6;
+	font-size: 0.875em;
+	border-left: 1px solid #A16200;
+	border-top: 1px solid #A16200;
+	border-bottom: 1px solid #A16200;
+	border-right: 1px solid #A16200;
+	padding: 40px;
 }
 
 @media screen and (max-width: 550px) {
-	.container {
-		width: 20rem;
-		/* padding: 3px 0.5em 10px 0.5em; */
+	.c {
+		margin: 0 0 0 7em;
 	}
 }
