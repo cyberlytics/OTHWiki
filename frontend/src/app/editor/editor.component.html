@@ -1,18 +1,35 @@
-<div class="c">
-  <div class="article">
-
+<body id="bootstrap-overrides">
+  <div class="c">
+    <div class="article">
       <div class="col-md-12">
-        <quill-editor [styles]="{ height: '300px' }" [modules]="editorModule" (onEditorChanged)="changedEditor($event)" [(ngModel)]="oldText">
+        <quill-editor
+          [styles]="{ height: '400px' }"
+          [modules]="editorModule"
+          (onEditorChanged)="changedEditor($event)"
+          [(ngModel)]="oldText"
+        >
         </quill-editor>
       </div>
-      <div>
-        <h3 style="text-align: left">Output</h3>
+      <div class="col-md-8 abstand">
+        <div [innerHTML]="editorText"></div>
+        <!-- <quill-view-html [innerHTML]="editorText"></quill-view-html> -->
       </div>
-      <div class="col-md-8">
-        <quill-view-html [innerHTML]="editorText"></quill-view-html>
-      </div>
-    <nav>
-      <a routerLink="/artikel">Save Article</a>
-    </nav>
+      <nav>
+        <div class="editor-btns">
+          <button
+            routerLink="/artikel"
+            class="btn-outline-primary btn editor-btn"
+          >
+            Abbrechen
+          </button>
+          <button
+            routerLink="/artikel"
+            class="btn-outline-primary btn editor-btn"
+          >
+            Artikel speichern
+          </button>
+        </div>
+      </nav>
+    </div>
   </div>
-</div>
+</body>
