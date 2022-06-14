@@ -597,6 +597,7 @@ span.user {
 /*Überschreibt Bootstrap*/
 #bootstrap-overrides{
 	border-radius: 10px;
+	background-color: #FFF !important;
 }
 
 #bootstrap-overrides button {
