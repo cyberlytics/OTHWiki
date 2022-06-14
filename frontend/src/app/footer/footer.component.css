@@ -2,7 +2,6 @@
     position: relative;
     bottom: 0;
     width: 100%;
-    padding-inline-start: 15em;
     padding-bottom: 3em;
 	font-size: 75%;
 	line-height: 2em;
@@ -41,8 +40,11 @@ a, a:visited {
   }
 /*End Überschreibt Bootstrap*/
 
-@media screen and (max-width: 550px) {
+
+ /*Tablet & Mobile*/
+ @media screen and (max-width: 980px) {
+
 	.pagefooter {
-		padding: 3px 0.5em 10px 0.5em;
+		padding-inline-start: 0;
 	}
 }

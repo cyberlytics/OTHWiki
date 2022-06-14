@@ -1,1 +1,65 @@
 
+mat-toolbar {
+    background: #F6F6F6;
+    color: white;
+}
+
+mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    background: #002b5c;
+    color: white;
+    border-radius: 10px;
+    padding: 40px 20px 20px 20px;
+    text-align: center;
+}
+
+.content {
+    height: auto;
+    border-radius: 10px;
+    margin: 16px;
+    margin-left: 32px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2rem;
+    color: lightgray;
+}
+
+mat-sidenav-container {
+    height: auto;
+}
+
+.mat-drawer-container {
+    background-color: #F6F6F6;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    display: block;
+    padding: 0;
+}
+
+.mat-icon-button{
+    color: black;
+    padding-left: 40px;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+    padding-left: 40px;
+}
+
+
+.mat-icon{
+    left: -31px;
+    position: relative;
+}
+
+ /*Tablet & Mobile*/
+ @media screen and (max-width: 800px) {
+    .mat-toolbar-row, .mat-toolbar-single-row {
+        display: flex;
+    }
+}
