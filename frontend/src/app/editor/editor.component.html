@@ -4,27 +4,30 @@
       <div class="col-md-12">
         <quill-editor
           [styles]="{ height: '400px' }"
-          [modules]="editorModule"
+          [modules]="config"
           (onEditorChanged)="changedEditor($event)"
           [(ngModel)]="oldText"
         >
         </quill-editor>
       </div>
       <div class="col-md-8 abstand">
-        <div [innerHTML]="editorText"></div>
-        <!-- <quill-view-html [innerHTML]="editorText"></quill-view-html> -->
+        <!-- <quill-view-html [content]="editorText" theme="snow"></quill-view-html> -->
+        <!-- <div [innerHTML]="editorText"></div> -->
+        <quill-view-html [innerHTML]="editorText"></quill-view-html>
       </div>
       <nav>
         <div class="editor-btns">
           <button
             routerLink="/artikel"
             class="btn-outline-primary btn editor-btn"
+            (click)="onSubmit()"
           >
             Abbrechen
           </button>
           <button
             routerLink="/artikel"
             class="btn-outline-primary btn editor-btn"
+            (click)="onSubmit()"
           >
             Artikel speichern
           </button>
@@ -33,3 +36,4 @@
     </div>
   </div>
 </body>
+>
