@@ -11,7 +11,6 @@ router_category = APIRouter()
 #create direct reference to the table in use
 db_categories = conn[config.DB_NAME].categories
 
-
 def get_category_by_id(obj_id:str):
     try:
         return db_categories.find_one({'_id':ObjectId(obj_id)})
@@ -50,7 +49,7 @@ def get_obj_with_childs(obj:dict,all_kats:list):
         '_id':obj['_id'],
         'kategorie':obj['kategorie'],
         'subkategorien':[],
-        'artikel':[]
+        'artikel':obj['artikel']
     }
     for child in obj['subkategorien']:
         for kat in all_kats:
@@ -117,9 +116,16 @@ async def delete_category(obj_id: str):
         obj = get_category_by_id(obj_id)
         parent = obj['parent_kategorie']
         children = obj['subkategorien']
+        #add childs to parent object
         db_categories.update_one(
             {'_id':ObjectId(parent)},
             {"$addToSet":{'subkategorien':{"$each":children}}}
+        )
+        #remove old cat object from parent 
+        #this is a seperate query to the db,because this is required since both query change the same object
+        db_categories.update_one(
+            {'_id':ObjectId(parent)},
+            {"$pull":{'subkategorien':obj_id}}
         )
 
         #delete it 
