@@ -1,24 +1,13 @@
 .c {
-    margin: 0 0 0 11em;
-	/* min-height: calc(100vh - 80px - 120px); */
-}
-
-.article {
-	background: #FFF;
-	line-height: 1.6;
-	font-size: 0.875em;
-	border-left: 1px solid #A16200;
-	border-top: 1px solid #A16200;
-	border-bottom: 1px solid #A16200;
+	min-height: calc(100vh - 80px);
 	padding: 40px;
 }
 
-@media screen and (max-width: 550px) {
-	.c {
-		margin: 0 0 0 7em;
-	}
+.article {
+	/* background: #FFF; */
+	padding: 0 1.5em 1.5em 1.5em;
+	min-height: calc(100vh - 80px);
 }
-
 
 #bootstrap-overrides button {
 	color: #F29400;
@@ -181,4 +170,9 @@ a,
 a:visited {
 	color: #F29400;
 	text-decoration: none;
+}
+
+#bootstrap-overrides{
+	border-radius: 10px;
+	background-color: #FFF !important;
 }
