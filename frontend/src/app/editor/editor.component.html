@@ -1,23 +1,39 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <quill-editor
-        [styles]="{ height: '300px' }"
-        [modules]="editorModule"
-        (onEditorChanged)="changedEditor($event)"
-      ></quill-editor>
-
+<body id="bootstrap-overrides">
+  <div class="c">
+    <div class="article">
+      <div class="col-md-12">
+        <quill-editor
+          [styles]="{ height: '400px' }"
+          [modules]="config"
+          (onEditorChanged)="changedEditor($event)"
+          [(ngModel)]="oldText"
+        >
+        </quill-editor>
+      </div>
+      <div class="col-md-8 abstand">
+        <!-- <quill-view-html [content]="editorText" theme="snow"></quill-view-html> -->
+        <!-- <div [innerHTML]="editorText"></div> -->
+        <quill-view-html [innerHTML]="editorText"></quill-view-html>
+      </div>
+      <nav>
+        <div class="editor-btns">
+          <button
+            routerLink="/artikel"
+            class="btn-outline-primary btn editor-btn"
+            (click)="onSubmit()"
+          >
+            Abbrechen
+          </button>
+          <button
+            routerLink="/artikel"
+            class="btn-outline-primary btn editor-btn"
+            (click)="onSubmit()"
+          >
+            Artikel speichern
+          </button>
+        </div>
+      </nav>
     </div>
   </div>
-  <div class="row">
-    <div>
-    <h3 style="text-align: left">Output</h3>
-  </div>
-    <div class="col-md-8">
-      <quill-view-html [innerHTML]="editorText"></quill-view-html>
-    </div>
-  </div>
-  <nav>
-    <a routerLink="/artikel">Save Article</a>
-  </nav>
-</div>
+</body>
+>
