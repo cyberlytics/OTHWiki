@@ -3,9 +3,10 @@
 .scroll-to-top {
   position: fixed;
   bottom: 15px;
-  right: 15px;
+  right: 89px;
   opacity: 0;
   transition: all .1s ease-in-out;
+  z-index: 30;
 }
 
 
