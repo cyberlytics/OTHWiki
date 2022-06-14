@@ -8,6 +8,11 @@ a:active,a:hover {
 	outline: 0;
 	color: #A16200 !important;
 }
+
+.mat-divider {
+    background-color: #F29400;
+}
+
 h1 {
 	font-size: 2em;
 	margin: 0.67em 0;
@@ -27,36 +32,27 @@ img {
 }
 
 a, a:visited {
-	color: #F29400;
+	color: white;
 	text-decoration: none;
 	font-family: sans-serif;
 }
 
-.sidebar {
-	float: left;
-	width: 11em;
-	padding: 13px 1.5em 10px 1.3em;
-	position: absolute;
-	height: 100%;
-	background-color: #f6f6f6;
-	height: 100%;
-	visibility: visible;
-}
+
 .sidebar h3 {
-	font-size: 0.75em;
-	color: #4d4d4d;
+	font-size: 0.90em;
+	color: #F29400;
 	font-weight: normal;
 	margin: 0.5em 0 0 0;
 	padding: 0.25em 0;
 	cursor: default;
 	border: 0;
-	border-bottom: 1px solid #D8D8D8;
+	border-bottom: 1px solid #F29400;
 }
 .sidebar li {
 	line-height: 1.125em;
 	margin: 0;
 	padding: 0.25em 0;
-	font-size: 0.75em;
+	font-size: 0.85rem;
 	word-wrap: break-word;
 }
 .logo {
@@ -67,22 +63,4 @@ a, a:visited {
 }
 .mainsection {
 	margin: 0 0 0 11em;
-}
-
-@media screen and (max-width: 550px) {
-	.sidebar {
-		width: 6em;
-		padding: 3px 0.5em 10px 0.5em;
-	}
-	
-	.contentsPanel {
-		width: auto;
-	}
-}
-
- /*Tablet & Mobile*/
- @media screen and (max-width: 980px) {
-	.sidebar{
-		visibility: hidden;
-	}
 }

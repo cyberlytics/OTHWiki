@@ -415,7 +415,7 @@ div.articleRightInner {
 }
 
 .mainsection {
-	margin: 0 0 0 11em;
+	padding: 40px;
 	min-height: calc(100vh - 80px);
 }
 
@@ -480,13 +480,6 @@ div.articleRightInner {
 
 .article {
 	padding: 1.25em 1.5em 1.5em 1.5em;
-	border-left: 1px solid #A16200;
-	background: #FFF;
-	line-height: 1.6;
-	font-size: 0.875em;
-	border-top: 1px solid #A16200;
-	border-bottom: 1px solid #A16200;
-	padding: 40px;
 }
 
 .article p {
@@ -610,11 +603,12 @@ span.user {
 .categories {
 	border: 1px solid #A16200;
 	background-color: #f8f9fa;
-	padding: 5px;
+	padding: 8px;
 	margin-top: 1em;
 	font-size: 1.1em;
 	clear: both;
 	text-align: center;
+	border-radius: 5px;
 }
 
 .categories a:after {
@@ -627,6 +621,10 @@ span.user {
 }
 
 /*Überschreibt Bootstrap*/
+#bootstrap-overrides{
+	border-radius: 10px;
+}
+
 #bootstrap-overrides button {
 	color: #F29400;
 	border-color: #F29400;
@@ -660,42 +658,4 @@ span.user {
 /*End Überschreibt Bootstrap*/
 
 
-@media screen and (max-width: 850px) {
-	#searchInput {
-		width: 110px;
-	}
-
-	#simpleSearch {
-		width: 138px;
-	}
-}
-
-@media screen and (max-width: 700px) {
-	.tabsRight {
-		display: none;
-	}
-}
-
-@media screen and (max-width: 550px) {
-	.mainsection {
-		margin: 0 0 0 7em;
-	}
-
-	.contentsPanel {
-		width: auto;
-	}
-}
-
-@media screen and (max-width: 400px) {
-	#simpleSearch {
-		display: none;
-	}
-}
-
- /*Tablet & Mobile*/
- @media screen and (max-width: 980px) {
-	.mainsection {
-		margin: 0 ;
-	}
-}
 
