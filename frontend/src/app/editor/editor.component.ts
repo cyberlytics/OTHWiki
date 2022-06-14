@@ -100,11 +100,16 @@ This is a blue <a href="">pencil</a>
 </p>`;
 
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
-    console.log(event);
     this.editorText = event['editor']['root']['innerHTML'];
+    //console.log(event);
   }
 
-  editorModule = {
+  //logging on button click to not cluster the console
+  onSubmit() {
+    console.log(this.editorText);
+  }
+
+  config = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
       // ['blockquote', 'code-block'],
