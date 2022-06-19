@@ -15,6 +15,15 @@ mat-sidenav {
     text-align: center;
 }
 
+button{
+    margin-left: 40px;
+}
+
+.mat-icon{
+    color: #F29400;
+}
+
+
 .content {
     height: auto;
     border-radius: 10px;
@@ -63,3 +72,5 @@ mat-sidenav-container {
         display: flex;
     }
 }
+
+

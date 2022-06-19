@@ -20,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 
 
 @NgModule({
@@ -45,8 +47,10 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    MatFormFieldModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    MdbCollapseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
