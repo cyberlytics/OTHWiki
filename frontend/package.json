@@ -24,6 +24,7 @@
     "bootstrap": "^5.1.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
+    "mdb-angular-ui-kit": "^2.2.0",
     "ngx-quill": "^16.2.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

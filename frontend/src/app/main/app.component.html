@@ -4,17 +4,20 @@
 
 
   <!-- Toolbar (Header)  --> 
-  <mat-toolbar>
+  <mat-toolbar style="height:auto">
     <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
       <mat-icon *ngIf="!sidenav.opened">
-        menu
+        home
       </mat-icon>
       <mat-icon *ngIf="sidenav.opened">
         close
       </mat-icon>
     </button>
-    <app-header></app-header>
+    <app-header style="width: 100%"></app-header>
   </mat-toolbar>
+
+
+
 
   <!--  --> 
   <mat-sidenav-container>

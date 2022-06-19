@@ -1,28 +1,53 @@
-
 <body id="bootstrap-overrides">
-    <div class="header-container">
-        
-        <div class="links">
-            <a class="hover-effect" href="https://moodle.oth-aw.de" target="_blank" rel="noopener noreferrer">Moodle</a> 
-            <a class="hover-effect" href="https://www3.primuss.de/cgi-bin/login/index.pl?FH=fhaw" target="_blank" rel="noopener noreferrer">Primuss</a> 
-            <a class="hover-effect" href="https://webmail.oth-aw.de/gw/webacc" target="_blank" rel="noopener noreferrer">Webmail</a> 
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- Container wrapper -->
+      <div class="container-fluid header-container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">OTH-Wiki</a>
+    
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          (click)="basicNavbar.toggle()"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fa fa-bars"></i>
+        </button>
+    
+        <!-- Collapsible wrapper -->
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          mdbCollapse
+          #basicNavbar="mdbCollapse"
+        >
+          <!-- Left links -->
+          <div class="links">
+              <a class="hover-effect" href="https://moodle.oth-aw.de" target="_blank" rel="noopener noreferrer">Moodle</a> 
+              <a class="hover-effect" href="https://www3.primuss.de/cgi-bin/login/index.pl?FH=fhaw" target="_blank" rel="noopener noreferrer">Primuss</a> 
+              <a class="hover-effect" href="https://webmail.oth-aw.de/gw/webacc" target="_blank" rel="noopener noreferrer">Webmail</a> 
+          </div>
+          <!-- Left links -->
+    
+          <!-- Search form -->
+          <form class="d-flex input-group w-auto">
+            <input
+              type="search"
+              class="form-control"
+              placeholder="Was suchst du?"
+              aria-label="Search"
+            />
+            <button type="submit" class="btn-color search-submit btn-outline-primary btn">
+              <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+          </form>
         </div>
-    
-    
-        <div class="search">
-            <div class="input-group">
-                <input type="search" class="search-field form-control" placeholder="Was suchst du?" value="" name="s" />
-                <div class="input-group-append">
-                    <button type="submit" class="btn-color search-submit btn-outline-primary btn">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    
-    </div>
-
-</body>
-
-
-
+        <!-- Collapsible wrapper -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+  </body>
