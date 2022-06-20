@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-editor',
@@ -7,12 +9,80 @@ import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
   styleUrls: ['./editor.component.css'],
 })
 export class EditorComponent implements OnInit {
-  constructor() {}
 
+  path= 'http://127.0.0.1:8000/';
+  FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
+  FIXED_TAGS = ["Testing"]
+
+  constructor(private http: HttpClient) { }
+  
   ngOnInit(): void {}
 
   title = 'frontend';
   editorText = '';
+
+  postUpdateArticle(update : updateArticle){
+    return this.http.post<updateArticle>(this.path+"articles/update",update).pipe(catchError(this.handleError))
+    .subscribe((res) => {
+      console.log(res);
+    })
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
+
+  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
+    this.editorText = event['editor']['root']['innerHTML'];
+    //console.log(event);
+  }
+
+  //logging on button click to not cluster the console
+  onSubmit() {
+    console.log(this.editorText);
+    var update : updateArticle= {
+      artikel_name: "Test",
+      artikel_text: this.editorText,
+      tags: this.FIXED_TAGS,
+      artikel_id: this.FIXED_ARTICLE_ID
+    }
+    var x = this.postUpdateArticle(update)
+  }
+
+  config = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      // ['blockquote', 'code-block'],
+
+      [{ header: 1 }, { header: 2 }, { header: 3 }], // custom button values
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+      // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      // [{ 'direction': 'rtl' }],                         // text direction
+
+      // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      // [{ 'font': [] }],
+      [{ align: [] }],
+
+      // ['clean'],                                         // remove formatting button
+
+      // ['link', 'image', 'video']                         // link and image, video
+    ],
+  };
+
   oldText = ` 
   <h1>Simple Wikipedia Website Placeholder</h1>      
   <p class="roleNote">
@@ -98,38 +168,18 @@ This is a blue <a href="">pencil</a>
   forensibus sea an, vim habeo adipisci contentiones ad, tale autem graecis
   ne sit.
 </p>`;
+}
 
-  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
-    this.editorText = event['editor']['root']['innerHTML'];
-    //console.log(event);
-  }
+export interface updateArticle{
+  artikel_id: string;
+  artikel_name: string;
+  artikel_text: string;
+  tags: Array<string>;
 
-  //logging on button click to not cluster the console
-  onSubmit() {
-    console.log(this.editorText);
-  }
-
-  config = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-      // ['blockquote', 'code-block'],
-
-      [{ header: 1 }, { header: 2 }, { header: 3 }], // custom button values
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-      // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-      // [{ 'direction': 'rtl' }],                         // text direction
-
-      // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-      // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-      // [{ 'font': [] }],
-      [{ align: [] }],
-
-      // ['clean'],                                         // remove formatting button
-
-      // ['link', 'image', 'video']                         // link and image, video
-    ],
-  };
+  // constructor(artikel_id: string, artikel_name: string, artikel_text: string, tags: Array<string>){
+  //   this.artikel_id = artikel_id;
+  //   this.artikel_name = artikel_name;
+  //   this.artikel_text = artikel_text;
+  //   this.tags = tags;
+  // }
 }
