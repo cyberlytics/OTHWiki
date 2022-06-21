@@ -20,7 +20,6 @@ class Article():
     tags: Optional[List[str]] = Field(default_factory=list)
     old_versions: Optional[List[OldVersion]] = Field(default_factory=list)
 
-
 @dataclass
 class UpdateArticle():
     artikel_id:str
