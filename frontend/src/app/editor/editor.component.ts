@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { EditorChangeContent, EditorChangeSelection, QUILL_CONFIG_TOKEN } from 'ngx-quill';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'; 
 import { catchError, Observable, throwError } from 'rxjs';
 import Quill from 'quill';
+import { Article, updateArticle, OldVersions } from '../dataclasses';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class EditorComponent implements OnInit {
 
@@ -65,7 +67,8 @@ export class EditorComponent implements OnInit {
       //console.log(res);
       this.currentArticle = res;
       console.log(this.currentArticle);
-      this.editor.setText(res.artikel_text);
+      //this.editor.setText(res.artikel_text);
+      this.oldText = res.artikel_text;
     })
   }
 
@@ -236,28 +239,5 @@ This is a blue <a href="">pencil</a>
 </p>`;
 }
 
-//Datamodels:
-export interface updateArticle{
-  artikel_id: string;
-  artikel_name: string;
-  artikel_text: string;
-  tags: Array<string>;
-}
 
-export interface Article{
-  _id: string;
-  artikel_name: string;
-  artikel_text: string;
-  kategorie: string;
-  current_version: number;
-  created: Date;
-  tags: Array<string>;
-  old_versions: Array<OldVersions>;
-}
-
-export interface OldVersions{
-  article_name: string;
-  article_text: string;
-  article_version: number;
-}
 
