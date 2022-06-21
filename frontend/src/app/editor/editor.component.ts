@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
+import { EditorChangeContent, EditorChangeSelection, QUILL_CONFIG_TOKEN } from 'ngx-quill';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'; 
 import { catchError, Observable, throwError } from 'rxjs';
+import Quill from 'quill';
 
 @Component({
   selector: 'app-editor',
@@ -10,17 +11,43 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class EditorComponent implements OnInit {
 
+  editor: Quill;
+
   path= 'http://127.0.0.1:8000/';
+
+  //Temporär: 
+  private _currentArticle: Article;
+  public get currentArticle(): Article {
+    return this._currentArticle;
+  }
+  public set currentArticle(value: Article) {
+    this._currentArticle = value;
+    console.log("CALLED IT");
+    if(!(typeof value === undefined)){
+      this.editorText = value?.artikel_text as string
+    }
+  }
+
+  //TODO: Needs to be changed for real ArticleID
   FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
   FIXED_TAGS = ["Testing"]
 
   constructor(private http: HttpClient) { }
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //this.getArticleByID(this.FIXED_ARTICLE_ID);
+    //console.log(this.currentArticle);
+    //this.editorText = this.currentArticle.artikel_text;
+  }
 
   title = 'frontend';
   editorText = '';
 
+  /**
+   * Updates a Article in the Database
+   * @param update Article Object
+   * @returns Observable of Request
+   */
   postUpdateArticle(update : updateArticle){
     return this.http.post<updateArticle>(this.path+"articles/update",update).pipe(catchError(this.handleError))
     .subscribe((res) => {
@@ -28,6 +55,35 @@ export class EditorComponent implements OnInit {
     })
   }
 
+  /**
+   * Gets an article by its ID
+   * @param id ObjectID of the Article
+   * @returns 
+   */
+  getArticleByID(id : string){
+    return this.http.get<Article>(this.path+"articles/"+id).pipe(catchError(this.handleError)).subscribe((res) => {
+      //console.log(res);
+      this.currentArticle = res;
+      console.log(this.currentArticle);
+      this.editor.setText(res.artikel_text);
+    })
+  }
+
+  /**
+   * Gets the Quill Editor instance, once it is created
+   * @param quill Quill Editor Instance
+   */
+  createQuill(quill: Quill){
+    console.log("CREATED");
+    this.editor = quill;
+    this.getArticleByID(this.FIXED_ARTICLE_ID);
+  }
+
+  /**
+   * Handels HTTP Request errors
+   * @param error Error Thrown by the request
+   * @returns 
+   */
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -42,20 +98,30 @@ export class EditorComponent implements OnInit {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
+  /**
+   * Gets Called wehen the Contents of the Editor Change
+   * @param event Event that occured
+   */
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     this.editorText = event['editor']['root']['innerHTML'];
-    //console.log(event);
+    console.log(event);
   }
+
+  
 
   //logging on button click to not cluster the console
   onSubmit() {
     console.log(this.editorText);
+
+    //Build the Article Object
     var update : updateArticle= {
       artikel_name: "Test",
       artikel_text: this.editorText,
       tags: this.FIXED_TAGS,
       artikel_id: this.FIXED_ARTICLE_ID
     }
+
+    //Send the HTTP Request
     var x = this.postUpdateArticle(update)
   }
 
@@ -170,16 +236,28 @@ This is a blue <a href="">pencil</a>
 </p>`;
 }
 
+//Datamodels:
 export interface updateArticle{
   artikel_id: string;
   artikel_name: string;
   artikel_text: string;
   tags: Array<string>;
-
-  // constructor(artikel_id: string, artikel_name: string, artikel_text: string, tags: Array<string>){
-  //   this.artikel_id = artikel_id;
-  //   this.artikel_name = artikel_name;
-  //   this.artikel_text = artikel_text;
-  //   this.tags = tags;
-  // }
 }
+
+export interface Article{
+  _id: string;
+  artikel_name: string;
+  artikel_text: string;
+  kategorie: string;
+  current_version: number;
+  created: Date;
+  tags: Array<string>;
+  old_versions: Array<OldVersions>;
+}
+
+export interface OldVersions{
+  article_name: string;
+  article_text: string;
+  article_version: number;
+}
+
