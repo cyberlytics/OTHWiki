@@ -12,11 +12,33 @@
         >
         </quill-editor>
       </div>
+
       <div class="col-md-8 abstand">
         <!-- <quill-view-html [content]="editorText" theme="snow"></quill-view-html> -->
         <!-- <div [innerHTML]="editorText"></div> -->
         <quill-view-html [innerHTML]="editorText"></quill-view-html>
       </div>
+      
+      <div>
+        <mat-form-field class="example-chip-list" appearance="outline">
+          <mat-label>Tags</mat-label>
+          <mat-chip-list #chipList aria-label="Tag selection">
+            <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
+              {{tag}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input placeholder="New tag..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="addTag($event)">
+          </mat-chip-list>
+        </mat-form-field>  
+      </div>
+
+
       <nav>
         <div class="editor-btns">
           <button

@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EditorChangeContent, EditorChangeSelection, QUILL_CONFIG_TOKEN } from 'ngx-quill';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'; 
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import Quill from 'quill';
 import { Article, updateArticle, OldVersions } from '../dataclasses';
+
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+export interface TagItem {
+  name: string;
+}
 
 @Component({
   selector: 'app-editor',
@@ -12,49 +18,103 @@ import { Article, updateArticle, OldVersions } from '../dataclasses';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class EditorComponent implements OnInit {
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void { }
+
+  //#region Tags Leiste
+  // ----- Tags Leiste ----- ///
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  tags: string[] = [];
+
+  /**
+   * Wird aufgerufen, wenn ein Tag hinzugefügt wird.
+   * @param event Auslösendes Event
+   */
+  addTag(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add Item
+    if (value) {
+      this.tags.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  /**
+   * Fügt Item zu den Tags hinzu
+   * @param item Item das entfernt werden soll
+   */
+  removeTag(item: string): void {
+    const index = this.tags.indexOf(item);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
+
+  //#endregion
+
+  //#region Editor
+  // ----- Editor ----- //
 
   editor: Quill;
+  path = 'http://127.0.0.1:8000/';
+  title = 'frontend';
+  editorText = '';
+  oldText = ``;
 
-  path= 'http://127.0.0.1:8000/';
-
-  //Temporär: 
+  //Temporär, hält aktuellen Artikel: 
   private _currentArticle: Article;
   public get currentArticle(): Article {
     return this._currentArticle;
   }
   public set currentArticle(value: Article) {
     this._currentArticle = value;
-    console.log("CALLED IT");
-    if(!(typeof value === undefined)){
+    if (!(typeof value === undefined)) {
       this.editorText = value?.artikel_text as string
     }
   }
 
+  /**
+ * Gets the Quill Editor instance, once it is created
+ * @param quill Quill Editor Instance
+ */
+  createQuill(quill: Quill) {
+    this.editor = quill;
+    this.getArticleByID(this.FIXED_ARTICLE_ID);
+  }
+
+  /**
+   * Gets Called wehen the Contents of the Editor Change
+   * @param event Event that occured
+   */
+  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
+    this.editorText = event['editor']['root']['innerHTML'];
+  }
+  //#endregion
+
+  //#region HTTP Requests
+
+  // ----- HTTP Requests ----- //
+
+
   //TODO: Needs to be changed for real ArticleID
   FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
   FIXED_TAGS = ["Testing"]
-
-  constructor(private http: HttpClient) { }
-  
-  ngOnInit(): void {
-    //this.getArticleByID(this.FIXED_ARTICLE_ID);
-    //console.log(this.currentArticle);
-    //this.editorText = this.currentArticle.artikel_text;
-  }
-
-  title = 'frontend';
-  editorText = '';
 
   /**
    * Updates a Article in the Database
    * @param update Article Object
    * @returns Observable of Request
    */
-  postUpdateArticle(update : updateArticle){
-    return this.http.post<updateArticle>(this.path+"articles/update",update).pipe(catchError(this.handleError))
-    .subscribe((res) => {
-      console.log(res);
-    })
+  postUpdateArticle(update: updateArticle) {
+    return this.http.post<updateArticle>(this.path + "articles/update", update).pipe(catchError(this.handleError))
+      .subscribe((res) => {
+      })
   }
 
   /**
@@ -62,24 +122,12 @@ export class EditorComponent implements OnInit {
    * @param id ObjectID of the Article
    * @returns 
    */
-  getArticleByID(id : string){
-    return this.http.get<Article>(this.path+"articles/"+id).pipe(catchError(this.handleError)).subscribe((res) => {
-      //console.log(res);
+  getArticleByID(id: string) {
+    return this.http.get<Article>(this.path + "articles/" + id).pipe(catchError(this.handleError)).subscribe((res) => {
       this.currentArticle = res;
-      console.log(this.currentArticle);
-      //this.editor.setText(res.artikel_text);
       this.oldText = res.artikel_text;
+      this.tags = res.tags;
     })
-  }
-
-  /**
-   * Gets the Quill Editor instance, once it is created
-   * @param quill Quill Editor Instance
-   */
-  createQuill(quill: Quill){
-    console.log("CREATED");
-    this.editor = quill;
-    this.getArticleByID(this.FIXED_ARTICLE_ID);
   }
 
   /**
@@ -101,26 +149,15 @@ export class EditorComponent implements OnInit {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
-  /**
-   * Gets Called wehen the Contents of the Editor Change
-   * @param event Event that occured
-   */
-  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
-    this.editorText = event['editor']['root']['innerHTML'];
-    console.log(event);
-  }
-
-  
+  //#endregion
 
   //logging on button click to not cluster the console
   onSubmit() {
-    console.log(this.editorText);
-
     //Build the Article Object
-    var update : updateArticle= {
+    var update: updateArticle = {
       artikel_name: "Test",
       artikel_text: this.editorText,
-      tags: this.FIXED_TAGS,
+      tags: this.tags,
       artikel_id: this.FIXED_ARTICLE_ID
     }
 
@@ -151,92 +188,6 @@ export class EditorComponent implements OnInit {
       // ['link', 'image', 'video']                         // link and image, video
     ],
   };
-
-  oldText = ` 
-  <h1>Simple Wikipedia Website Placeholder</h1>      
-  <p class="roleNote">
-  This article is about the writing implement. For other uses, see Pencil
-  (disambiguation).
-</p>
-
-<!-- <div class="articleRight">
-<div class="articleRightInner">
-  <img src="../../assets/pencil.jpg" alt="pencil" />
-</div>
-This is a blue <a href="">pencil</a>
-</div> -->
-<p>
-  Lorem ipsum <strong>dolor sit amet</strong>, nonumes voluptatum mel ea, cu
-  case ceteros cum. Novum commodo malorum vix ut. Dolores consequuntur in
-  ius, sale electram dissentiunt quo te. Cu duo omnes invidunt, eos eu
-  mucius fabellas. Stet facilis ius te, quando voluptatibus eos in. Ad vix
-  mundi alterum, integre urbanitas intellegam vix in.
-</p>
-<p>
-  Eum facete intellegat ei, ut mazim melius usu. Has elit simul primis ne,
-  regione minimum id cum. Sea deleniti dissentiet ea. Illud mollis
-  moderatius ut per, at qui ubique populo. Eum ad cibo legimus, vim ei
-  quidam fastidii.
-</p>
-<p>
-  Quo debet vivendo ex. Qui ut admodum senserit partiendo. Id adipiscing
-  disputando eam, sea id magna pertinax concludaturque. Ex ignota epicurei
-  quo, his ex doctus delenit fabellas, erat timeam cotidieque sit in. Vel eu
-  soleat voluptatibus, cum cu exerci mediocritatem. Malis legere at per, has
-  brute putant animal et, in consul utamur usu.
-</p>
-<p>
-  Te has amet modo perfecto, te eum mucius conclusionemque, mel te erat
-  deterruisset. Duo ceteros phaedrum id, ornatus postulant in sea. His at
-  autem inani volutpat. Tollit possit in pri, platonem persecuti ad vix, vel
-  nisl albucius gloriatur no.
-</p>
-<h2>Paulo eirmod intellegam</h2>
-<h3>Percipit maiestatis sea eu</h3>
-<p>
-  Ex quod meis per, ea paulo eirmod intellegam usu, eam te propriae
-  fabellas. Nobis graecis has at, an eum audire impetus. Ius epicuri
-  verterem ex, qui cu solet feugiat consetetur. Placerat apeirian et sea,
-  nec wisi viderer definiebas ex, at eum oratio honestatis.
-</p>
-<p>
-  Eum illum nulla graeci at, mea quis munere indoctum at. In sea partiendo
-  hendrerit. Quaestio partiendo an eam, rebum vitae accumsan ius id. Duo at
-  causae option.
-</p>
-<p>
-  At persius imperdiet vis, ea elit atqui aperiri mei, percipit maiestatis
-  sea eu. Has et partem hendrerit, vim cibo veniam aliquid an. No pri populo
-  abhorreant, everti mandamus ne mea. Debitis forensibus suscipiantur ius
-  cu. Ei per possim verterem, et iudico voluptatum eos.
-</p>
-<h3>Nam option recusabo</h3>
-<p>
-  Te mel meis adhuc. Choro percipit mei eu, fabulas fuisset tibique ad sea,
-  cu eos sint falli iracundia. Usu ex minimum corrumpit, postea dolores
-  salutandi ne est, cu nam option recusabo reprehendunt. Prima vocibus
-  argumentum ex usu. Nam te legere salutatus dissentiunt, his ei principes
-  prodesset, est possit blandit ex.
-</p>
-<p>
-  Pro no rebum timeam necessitatibus, et mnesarchum quaerendum has. Duo
-  molestie interesset at. Vel ad legere populo. Sed ne saepe doming
-  perpetua. Omnis iuvaret volumus an duo, qui duis audiam fabellas in.
-</p>
-<p>
-  Te has amet modo perfecto, te eum mucius conclusionemque, mel te erat
-  deterruisset. Duo ceteros phaedrum id, ornatus postulant in sea. His at
-  autem inani volutpat. Tollit possit in pri, platonem persecuti ad vix, vel
-  nisl albucius gloriatur no.
-</p>
-<h2>Sed rebum regione suscipit</h2>
-<p>
-  Ea duo atqui incorrupte, sed rebum regione suscipit ex, mea ex dicant
-  percipit referrentur. Dicat luptatum constituam vix ut. His vide platonem
-  omittantur id, vel quis vocent an. Ad pro inani zril omnesque. Mollis
-  forensibus sea an, vim habeo adipisci contentiones ad, tale autem graecis
-  ne sit.
-</p>`;
 }
 
 
