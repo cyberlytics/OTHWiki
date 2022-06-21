@@ -22,15 +22,11 @@ export class ArtikelComponent implements OnInit {
     articleText=''
 
   ngOnInit(): void {
-    this.setArticleText(this.FIXED_ARTICLE_ID)
+    this.setArticleText(this.FIXED_ARTICLE_ID);
   }
 
   setArticleText(id : string){
     return this.http.get<Article>(this.path+"articles/"+id).pipe(catchError(this.handleError)).subscribe((res) => {
-      //console.log(res);
-      //this.currentArticle = res;
-      //console.log(this.currentArticle);
-      //this.editor.setText(res.artikel_text);
       this.articleText = res.artikel_text;
     })
   }

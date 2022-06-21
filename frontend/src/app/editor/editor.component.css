@@ -176,3 +176,7 @@ a:visited {
 	border-radius: 10px;
 	background-color: #FFF !important;
 }
+
+.example-chip-list{
+	width: 100%;
+}
