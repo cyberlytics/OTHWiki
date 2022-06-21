@@ -1,11 +1,11 @@
 <body id="bootstrap-overrides">
+  <nav>
+    <button routerLink="/edit" class="btn-outline-primary btn btn_article">
+      <i class="fa fa-pencil"></i>
+    </button>
+  </nav>
   <div class="mainsection">
     <div class="article">
-      <nav>
-        <button routerLink="/edit" class="btn-outline-primary btn btn_article">
-          <i class="fa fa-pencil"></i>
-        </button>
-      </nav>
       <div [innerHTML]="articleText"></div>
     </div>
   </div>  
