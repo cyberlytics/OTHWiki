@@ -27,6 +27,7 @@ export class EditorComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];
+  static readonly MAX_TAG_SIZE: number = 50
 
   /**
    * Wird aufgerufen, wenn ein Tag hinzugefügt wird.
@@ -36,8 +37,9 @@ export class EditorComponent implements OnInit {
     const value = (event.value || '').trim();
 
     // Add Item
-    if (value) {
-      this.tags.push(value);
+    // Must not be already in tags and must be shorter than 50 characters
+    if (value && !this.tags.includes(value) && value.length < EditorComponent.MAX_TAG_SIZE) {
+        this.tags.push(value); 
     }
 
     // Clear the input value
