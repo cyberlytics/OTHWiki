@@ -7,6 +7,7 @@
           [styles]="{ height: '400px' }"
           [modules]="config"
           (onEditorChanged)="changedEditor($event)"
+          (onEditorCreated)="createQuill($event)"
           [(ngModel)]="oldText"
         >
         </quill-editor>
