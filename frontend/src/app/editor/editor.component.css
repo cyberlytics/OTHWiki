@@ -1,3 +1,4 @@
+@import "~font-awesome/css/font-awesome.min.css";
 .c {
 	min-height: calc(100vh - 80px);
 	padding: 40px;
@@ -50,7 +51,11 @@
 }
 
 .abstand{
-	padding-top: 20px;
+	padding-top: 40px;
+}
+
+.fa{
+		margin: 5px;
 }
 
 @media print {
