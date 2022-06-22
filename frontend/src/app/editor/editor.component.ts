@@ -185,7 +185,7 @@ export class EditorComponent implements OnInit {
 
       // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       // [{ 'font': [] }],
-      [{ align: [] }],
+      // [{ align: [] }],
 
       // ['clean'],                                         // remove formatting button
 
