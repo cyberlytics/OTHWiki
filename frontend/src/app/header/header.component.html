@@ -7,15 +7,17 @@
         <a class="navbar-brand" href="#">OTH-Wiki</a>
     
         <!-- Toggle button -->
-        <button
+          <button
+          #myDiv
           class="navbar-toggler"
           type="button"
-          (click)="basicNavbar.toggle()"
+          (click)="basicNavbar.toggle(); menuClick()"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <i class="fa fa-bars"></i>
         </button>
+
     
         <!-- Collapsible wrapper -->
         <div
@@ -35,13 +37,14 @@
           <!-- Search form -->
           <form class="d-flex input-group w-auto">
             <input
+              #searchInput
               type="search"
               class="form-control"
               placeholder="Was suchst du?"
               aria-label="Search"
             />
-            <button type="submit" class="btn-color search-submit btn-outline-primary btn">
-              <i class="fa fa-search" aria-hidden="true"></i>
+            <button type="submit" (click)="submitSearch(searchInput.value)" class="btn-color search-submit btn-outline-primary btn search">
+              <i class="fa fa-search search" aria-hidden="true"></i>
           </button>
           </form>
         </div>

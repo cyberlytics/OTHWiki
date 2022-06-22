@@ -1,19 +1,242 @@
 /* You can add global styles to this file, and also import other style files */
 
-@font-face {
-	font-family: "Linux Libertine";
-	src: url("fonts/LinLibertine_RZ.woff") format('woff');
-}
-
-
 body {
 	background-color: #f6f6f6 !important;
 	margin: 0
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-img{
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+img {
 	width: 100%;
 	padding: 20px 0;
 }
+
+
+/*Start Überschreibung der Quill.css nur global möglich*/
+.ql-snow .ql-editor h1 {
+	font-family: 'Times New Roman';
+	margin: 30px 0px 10px 0px;
+}
+
+.ql-snow .ql-editor h2 {
+	font-family: 'Times New Roman';
+	font-size: 1.6em;
+	margin: 1em 0 0.5em 0;
+	border-bottom: 1px solid #F29400;
+	line-height: 1.4em;
+	padding-bottom: 0em;
+}
+
+.ql-snow .ql-editor h3 {
+	font-family: 'Times New Roman';
+	margin: 15px 0px 10px 0px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+p {
+	font-family: sans-serif;
+	line-height: 1.7;
+	font-size: 0.9rem;
+}
+
+.ql-editor {
+	padding: 0px 30px 30px 30px !important;
+}
+
+.mat-h1,
+.mat-headline,
+.mat-typography .mat-h1,
+.mat-typography .mat-headline,
+.mat-typography h1 {
+	font-family: 'Times New Roman';
+	line-height: 1.3;
+	margin-bottom: 0.25em;
+	padding: 0;
+	letter-spacing: 0;
+	font-size: 2.3em;
+	border-bottom: 1px solid #F29400;
+}
+
+.mat-h2,
+.mat-title,
+.mat-typography .mat-h2,
+.mat-typography .mat-title,
+.mat-typography h2 {
+	font-family: 'Times New Roman';
+	font-size: 1.6em;
+	margin: 0.5em 0 0.5em 0;
+	border-bottom: 1px solid #F29400;
+	line-height: 1.4em;
+	padding-bottom: 0em;
+}
+
+.mat-h3,
+.mat-subheading-2,
+.mat-typography .mat-h3,
+.mat-typography .mat-subheading-2,
+.mat-typography h3 {
+	font-family: 'Times New Roman';
+	margin: 15px 0px 10px 0px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.ql-header svg {
+	display: none;
+}
+
+.ql-header {
+
+	color: #444;
+}
+
+.ql-picker-item[data-value='1']{
+	font-family: 'Times New Roman';
+	line-height: 1.3;
+	margin-bottom: 0.25em;
+	padding: 0;
+	letter-spacing: 0;
+	font-size: 1em;
+	border-bottom: 1px solid #F29400;	
+}
+
+.ql-picker-item[data-value='2']{
+	font-family: 'Times New Roman';
+	font-size: 1em;
+	margin: 0.5em 0 0.5em 0;
+	border-bottom: 1px solid #F29400;
+	line-height: 1.4em;
+	padding-bottom: 0em;
+}
+
+.ql-picker-item[data-value='3']{
+	font-family: 'Times New Roman';
+	margin: 15px 0px 10px 0px;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.ql-header[value='1']:after {
+	clear: both;
+	content: "H1";
+	display: table;
+	font-weight: 600;
+	margin-top: -2px;
+	margin-left: 1px;
+	font-size: 14px;
+}
+
+.ql-header[value='3']:after {
+	clear: both;
+	content: "H3";
+	display: table;
+	font-weight: 600;
+	margin-top: -2px;
+	margin-left: 1px;
+	font-size: 14px;
+}
+
+.ql-header[value='2']:after {
+	clear: both;
+	content: "H2";
+	display: table;
+	font-weight: 600;
+	margin-top: -2px;
+	margin-left: 1px;
+	font-size: 14px;
+}
+
+.ql-snow.ql-toolbar button:hover,
+.ql-snow .ql-toolbar button:hover,
+.ql-snow.ql-toolbar button:focus,
+.ql-snow .ql-toolbar button:focus,
+.ql-snow.ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar button.ql-active,
+.ql-snow.ql-toolbar .ql-picker-label:hover,
+.ql-snow .ql-toolbar .ql-picker-label:hover,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active,
+.ql-snow.ql-toolbar .ql-picker-item:hover,
+.ql-snow .ql-toolbar .ql-picker-item:hover,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+	color: #F29400 !important;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-stroke,
+.ql-snow .ql-toolbar button:hover .ql-stroke,
+.ql-snow.ql-toolbar button:focus .ql-stroke,
+.ql-snow .ql-toolbar button:focus .ql-stroke,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.ql-snow.ql-toolbar button:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar button:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar button:focus .ql-stroke-miter,
+.ql-snow .ql-toolbar button:focus .ql-stroke-miter,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke-miter,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+	color: #F29400 !important;
+	stroke: #F29400 !important;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-fill,
+.ql-snow .ql-toolbar button:hover .ql-fill,
+.ql-snow.ql-toolbar button:focus .ql-fill,
+.ql-snow .ql-toolbar button:focus .ql-fill,
+.ql-snow.ql-toolbar button.ql-active .ql-fill,
+.ql-snow .ql-toolbar button.ql-active .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+	fill: #F29400 !important;
+}
+
+.ql-snow .ql-stroke:hover {
+	stroke: #F29400;
+}
+
+/*Ende Quill.css Überschreibung*/
