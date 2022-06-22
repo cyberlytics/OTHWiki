@@ -23,7 +23,7 @@ img {
 /*Start Überschreibung der Quill.css nur global möglich*/
 .ql-snow .ql-editor h1 {
 	font-family: 'Times New Roman';
-	margin: 20px 0px 10px 0px;
+	margin: 0px 0px 10px 0px;
 }
 
 .ql-snow .ql-editor h2 {
@@ -49,7 +49,7 @@ p {
 }
 
 .ql-editor {
-	padding: 0px 30px 30px 30px !important;
+	padding: 10px 30px 30px 30px !important;
 }
 
 .mat-h1,

@@ -19,7 +19,8 @@ export class ArtikelComponent implements OnInit {
 
     path= 'http://127.0.0.1:8000/';
 
-    articleText=''
+    articleText='';
+    articleName='';
 
   ngOnInit(): void {
     this.setArticleText(this.FIXED_ARTICLE_ID);
@@ -27,6 +28,7 @@ export class ArtikelComponent implements OnInit {
 
   setArticleText(id : string){
     return this.http.get<Article>(this.path+"articles/"+id).pipe(catchError(this.handleError)).subscribe((res) => {
+      this.articleName = res.artikel_name;
       this.articleText = res.artikel_text;
     })
   }
