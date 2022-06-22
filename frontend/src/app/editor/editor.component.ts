@@ -68,6 +68,7 @@ export class EditorComponent implements OnInit {
   title = 'frontend';
   editorText = '';
   oldText = ``;
+  articleName = ''
 
   //Temporär, hält aktuellen Artikel: 
   private _currentArticle: Article;
@@ -129,6 +130,7 @@ export class EditorComponent implements OnInit {
       this.currentArticle = res;
       this.oldText = res.artikel_text;
       this.tags = res.tags;
+      this.articleName = res.artikel_name;
     })
   }
 
