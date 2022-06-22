@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EditorChangeContent, EditorChangeSelection, QUILL_CONFIG_TOKEN } from 'ngx-quill';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import Quill from 'quill';
 import { Article, updateArticle, OldVersions } from '../dataclasses';
 
@@ -69,6 +69,7 @@ export class EditorComponent implements OnInit {
   editorText = '';
   oldText = ``;
   articleName = ''
+  titleID = '';
 
   //Temporär, hält aktuellen Artikel: 
   private _currentArticle: Article;
@@ -98,6 +99,16 @@ export class EditorComponent implements OnInit {
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     this.editorText = event['editor']['root']['innerHTML'];
   }
+
+//prevents making new lines in the title
+  titleChanged(event : any ){
+    if(event.keyCode == 13){
+      event.preventDefault();
+      return false
+    }
+    return
+  }
+
   //#endregion
 
   //#region HTTP Requests
@@ -157,9 +168,15 @@ export class EditorComponent implements OnInit {
 
   //logging on button click to not cluster the console
   onSubmit() {
-    //Build the Article Object
+    
+    //making sure titles can't be changed to null or empty strings
+    var tempTitle = document.getElementById('title')!.innerText;
+    if(tempTitle.length > 0 && !null){
+      this.articleName = tempTitle;
+    }
+
     var update: updateArticle = {
-      artikel_name: "Test",
+      artikel_name: this.articleName,
       artikel_text: this.editorText,
       tags: this.tags,
       artikel_id: this.FIXED_ARTICLE_ID

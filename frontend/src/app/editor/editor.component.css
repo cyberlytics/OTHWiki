@@ -35,8 +35,9 @@
 }
 
 .editor-btn {
-	padding: 5px;
+	padding: 5px 7px 5px 7px;
 	margin: 5px;
+
 }
 
 .editor-btns{
@@ -181,4 +182,10 @@ a:visited {
 }
 .labels{
 	padding-top: 20px;
+}
+
+#bootstrap-overrides button:hover {
+	color: #fff;
+	background-color: #F29400;
+	border-color: #F29400;
 }
