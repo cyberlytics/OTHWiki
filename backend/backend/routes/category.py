@@ -53,7 +53,7 @@ def get_obj_with_childs(obj:dict,all_kats:list):
     }
     for child in obj['subkategorien']:
         for kat in all_kats:
-            if child == kat['_id']:
+            if str(child) == kat['_id']:
                 output['subkategorien'].append(get_obj_with_childs(kat,all_kats)) 
     return output  
 

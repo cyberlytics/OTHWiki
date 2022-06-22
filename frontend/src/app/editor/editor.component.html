@@ -1,12 +1,13 @@
 <body id="bootstrap-overrides">
   <div class="c">
-    <div class="article">
+    <div class="editor">
       <h1>"Artikel" - Bearbeiten</h1>
       <div class="col-md-12">
         <quill-editor
           [styles]="{ height: '400px' }"
           [modules]="config"
           (onEditorChanged)="changedEditor($event)"
+          (onEditorCreated)="createQuill($event)"
           [(ngModel)]="oldText"
         >
         </quill-editor>
@@ -16,6 +17,27 @@
         <!-- <div [innerHTML]="editorText"></div> -->
         <quill-view-html [innerHTML]="editorText"></quill-view-html>
       </div>
+      
+      <div>
+        <mat-form-field class="example-chip-list" appearance="outline">
+          <mat-label>Tags</mat-label>
+          <mat-chip-list #chipList aria-label="Tag selection">
+            <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
+              {{tag}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input placeholder="New tag..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="addTag($event)">
+          </mat-chip-list>
+        </mat-form-field>  
+      </div>
+
+
       <nav>
         <div class="editor-btns">
           <button

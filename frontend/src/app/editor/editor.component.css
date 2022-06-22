@@ -4,7 +4,7 @@
 	padding: 40px;
 }
 
-.article {
+.editor {
 	/* background: #FFF; */
 	padding: 0 1.5em 1.5em 1.5em;
 	min-height: calc(100vh - 80px);
@@ -131,12 +131,12 @@ h6 {
 	padding-bottom: 0.17em;
 }
 
-.article h1 {
+.editor h1 {
 	font-family: 'Times New Roman';
 	border-bottom: 1px solid #F29400;
 }
 
-.article h2 {
+.editor h2 {
 	font-family: 'Times New Roman';
 	font-size: 1.6em;
 	margin: 0.5em 0 0.5em 0;
@@ -145,13 +145,13 @@ h6 {
 	padding-bottom: 0em;
 }
 
-.article h3 {
+.editor h3 {
 	font-family: 'Times New Roman';
 	font-weight: bold;
 	font-size: 1.2em;
 }
 
-.article p.roleNote {
+.editor p.roleNote {
 	padding: 1em 0 0 1.6em;
 	font-style: italic;
 }
@@ -180,4 +180,8 @@ a:visited {
 #bootstrap-overrides{
 	border-radius: 10px;
 	background-color: #FFF !important;
+}
+
+.example-chip-list{
+	width: 100%;
 }
