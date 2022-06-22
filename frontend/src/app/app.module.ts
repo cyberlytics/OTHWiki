@@ -22,6 +22,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
     MatFormFieldModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    MdbCollapseModule
+    MdbCollapseModule,  
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
