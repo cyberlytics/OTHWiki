@@ -2,8 +2,8 @@
 
 .scroll-to-top {
   position: fixed;
-  bottom: 15px;
-  right: 89px;
+  bottom: 25px;
+  right: 30px;
   opacity: 0;
   transition: all .1s ease-in-out;
   z-index: 30;
@@ -45,5 +45,4 @@
   outline: 0;
   box-shadow: 0 0 0 .25rem rgba(253, 157, 13, 0.25);
 }
-
 /*End Überschreibt Bootstrap*/

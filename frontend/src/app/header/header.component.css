@@ -20,6 +20,14 @@
     visibility: visible;
 }
 
+.search:active {
+    color: white !important;
+}
+
+.search:hover {
+    color: white !important;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -32,8 +40,13 @@
     border: none;
 }
 
-nav{
+nav {
     width: 100%;
+}
+
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 /*Überschreibt Bootstrap*/
@@ -129,7 +142,7 @@ nav{
 
 .navbar-toggler:focus {
     box-shadow: none !important;
-  }
+}
 
 /*End Hover-Effekt*/
 
@@ -138,22 +151,22 @@ nav{
 @media screen and (max-width: 800px) {
 
     .links {
-      margin-left: 0px;
-      margin: 10px;
-    }
-  
-    .header-container {
-      padding: 15px 50px;
-      margin: 0;
-    }
-  
-    .header-container{
-      padding: 15px 50px 15px 30px;
+        margin-left: 0px;
+        margin: 10px;
     }
 
-    .navbar-brand{
+    .header-container {
+        padding: 15px 50px;
+        margin: 0;
+    }
+
+    .header-container {
+        padding: 15px 50px 15px 30px;
+    }
+
+    .navbar-brand {
         justify-content: center;
         display: flex;
         flex: 1;
     }
-  }
+}

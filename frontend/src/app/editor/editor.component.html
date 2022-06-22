@@ -12,8 +12,7 @@
         >
         </quill-editor>
       </div>
-
-      <div class="col-md-8 abstand">
+      <div class="col-md-12 abstand">
         <!-- <quill-view-html [content]="editorText" theme="snow"></quill-view-html> -->
         <!-- <div [innerHTML]="editorText"></div> -->
         <quill-view-html [innerHTML]="editorText"></quill-view-html>
@@ -46,14 +45,14 @@
             class="btn-outline-primary btn editor-btn"
             (click)="onSubmit()"
           >
-            Abbrechen
+            <i class="fa fa-times" aria-hidden="true"></i>
           </button>
           <button
             routerLink="/artikel"
             class="btn-outline-primary btn editor-btn"
             (click)="onSubmit()"
           >
-            Artikel speichern
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>
       </nav>
