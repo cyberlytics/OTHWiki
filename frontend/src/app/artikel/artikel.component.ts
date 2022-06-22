@@ -7,7 +7,7 @@ import { Article, updateArticle, OldVersions } from '../dataclasses';
   selector: 'app-artikel',
   templateUrl: './artikel.component.html',
   styleUrls: ['./artikel.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class ArtikelComponent implements OnInit {
 

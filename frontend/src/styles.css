@@ -23,7 +23,7 @@ img {
 /*Start Überschreibung der Quill.css nur global möglich*/
 .ql-snow .ql-editor h1 {
 	font-family: 'Times New Roman';
-	margin: 30px 0px 10px 0px;
+	margin: 20px 0px 10px 0px;
 }
 
 .ql-snow .ql-editor h2 {
@@ -85,18 +85,12 @@ p {
 .mat-typography .mat-subheading-2,
 .mat-typography h3 {
 	font-family: 'Times New Roman';
-	margin: 15px 0px 10px 0px;
 	font-weight: bold;
 	font-size: 1.2em;
 }
 
 .ql-header svg {
 	display: none;
-}
-
-.ql-header {
-
-	color: #444;
 }
 
 .ql-picker-item[data-value='1']{
