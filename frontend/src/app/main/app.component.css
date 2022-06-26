@@ -7,7 +7,7 @@ mat-toolbar {
 }
 
 mat-sidenav {
-    margin: 16px;
+    margin: 8px 16px 16px 16px;
     width: 200px;
     border-right: none;
     background: #002b5c;
@@ -33,7 +33,7 @@ button{
 .content {
     height: auto;
     border-radius: 10px;
-    margin: 16px;
+    margin: 8px 16px 16px 16px;
     margin-left: 32px;
 
     /* display: flex;
