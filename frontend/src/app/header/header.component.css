@@ -32,7 +32,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 23px 4% 6px 4%;
+    padding: 25px 4% 6px 4%;
     background-color: #F6F6F6;
 }
 
@@ -168,7 +168,7 @@ nav {
     }
 
     .header-container {
-        padding: 15px 50px;
+        padding: 17px 50px 6px 4%;
         margin: 0;
     }
 
@@ -177,5 +177,10 @@ nav {
         display: flex;
         flex: 1;
         padding: 15px 50px 15px 100px;
+    }
+
+    .hover-effect:after {
+        margin: 5px auto;
+        height: 3px;
     }
 }
