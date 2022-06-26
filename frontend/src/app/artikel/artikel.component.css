@@ -600,34 +600,45 @@ span.user {
 	background-color: #FFF !important;
 }
 
-#bootstrap-overrides button {
+#bootstrap-overrides .btn-color {
+    color: #F29400;
+    border-color: #F29400;
+}
+
+#bootstrap-overrides .btn-color:hover {
+    background-color: #F29400;
+    border-color: #F29400;
+}
+
+#bootstrap-overrides .btn-color:active {
+    background-color: #F29400;
+    border-color: #F29400;
+}
+
+#bootstrap-overrides button:focus {
+    box-shadow: 0 0 0 .25rem rgba(253, 157, 13, 0.25);
+}
+
+/*Edit-Button beim Artikel*/
+#bootstrap-overrides button[value='100'] {
 	color: #F29400;
 	border-color: #F29400;
 	background-color: #fff;
 }
 
-#bootstrap-overrides button:hover {
+#bootstrap-overrides button[value='100']:hover {
 	color: #fff;
 	background-color: #F29400;
 	border-color: #F29400;
 }
 
-#bootstrap-overrides button:active {
+#bootstrap-overrides button[value='100']:active {
 	color: #fff;
 	background-color: #F29400;
 	border-color: #F29400;
 }
 
-#bootstrap-overrides button:focus {
+#bootstrap-overrides button[value='100']:focus {
 	box-shadow: 0 0 0 .25rem rgba(253, 157, 13, 0.25);
 }
-
-#bootstrap-overrides input:focus {
-	color: #292521;
-	background-color: #fff;
-	border-color: #fed286;
-	outline: 0;
-	box-shadow: 0 0 0 .25rem rgba(253, 157, 13, 0.25);
-}
-
 /*End Überschreibt Bootstrap*/

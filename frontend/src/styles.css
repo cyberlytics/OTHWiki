@@ -4,10 +4,11 @@ body {
 	background-color: #f6f6f6 !important;
 	margin: 0
 }
-
 html,
 body {
 	height: 100%;
+    background-color: #F6F6F6;
+
 }
 
 body {
@@ -48,9 +49,65 @@ p {
 	font-size: 0.9rem;
 }
 
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+	padding: 10px 0px;
+  }
+
+  .ql-editor.ql-blank::before {
+	color: rgba(0,0,0,0.6);
+	content: "Text hier einfügen" !important;
+	font-style: italic;
+	left: 15px;
+	pointer-events: none;
+	position: absolute;
+	right: 15px;
+	padding: 4px 14px;
+  }
+  
+
 .ql-editor {
 	padding: 10px 30px 30px 30px !important;
 }
+
+
+  .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline {
+	color: #002B5C;
+  }
+
+  .mat-sidenav {
+	margin: 16px 16px 36px 16px !important;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    white-space: nowrap;
+    flex-wrap: wrap;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+    top: 54px;
+    z-index: 10;
+}
+
+
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: #F29400 !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #F29400 !important;
+}
+
+
+  .mat-chip.mat-standard-chip {
+	background-color: #EDEDED;
+  }
+
+
+  .mat-focus-indicator::before {
+border: none;
+  }
+
+
 
 .mat-h1,
 .mat-headline,
@@ -148,6 +205,29 @@ p {
 	margin-left: 1px;
 	font-size: 14px;
 }
+
+.ql-toolbar.ql-snow {
+	border: 2px solid #ccc;
+	border-radius: 5px;
+  }
+
+  .ql-container.ql-snow {
+	border: 2px solid #ccc;
+	border-radius: 5px;
+  }
+
+  .ql-align-center{
+	text-align: center;
+  }
+
+  .ql-align-right{
+	text-align: right;
+  }
+
+  .ql-align-justify{
+	text-align: justify;
+  }
+
 
 .ql-snow.ql-toolbar button:hover,
 .ql-snow .ql-toolbar button:hover,
