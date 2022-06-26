@@ -1,5 +1,5 @@
 .content {
-    margin: 16px 36px 36px 36px !important;
+    margin: 18px 36px 36px 36px !important;
 }
 mat-toolbar {
     background: #F6F6F6;
@@ -80,7 +80,7 @@ mat-sidenav-container {
     }
 
     .content {
-        margin: 0px 36px 36px 36px !important;
+        margin: 18px 36px 18px 36px !important;
     }
 }
 
