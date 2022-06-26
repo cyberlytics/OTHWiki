@@ -36,12 +36,6 @@
 	background-color: #fff;
 }
 
-#bootstrap-overrides button:hover {
-	color: #fff;
-	background-color: #F29400;
-	border-color: #F29400;
-}
-
 #bootstrap-overrides button:active {
 	color: #fff;
 	background-color: #F29400;

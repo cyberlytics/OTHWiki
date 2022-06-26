@@ -1,7 +1,14 @@
 <body id="bootstrap-overrides">
   <div class="c">
     <div class="editor">
-      <h1>"Artikel" - Bearbeiten</h1>
+      <h1 
+        contenteditable 
+        id="title" 
+        onkeypress="return (this.innerText.length <= 30)" 
+        (keydown)="titleChanged($event)"
+        onpaste="return false;">
+        {{articleName}}
+      </h1>
       <div class="col-md-12">
         <quill-editor
           [styles]="{ height: '400px' }"
@@ -12,13 +19,8 @@
         >
         </quill-editor>
       </div>
-      <div class="col-md-12 abstand">
-        <!-- <quill-view-html [content]="editorText" theme="snow"></quill-view-html> -->
-        <!-- <div [innerHTML]="editorText"></div> -->
-        <quill-view-html [innerHTML]="editorText"></quill-view-html>
-      </div>
-      
-      <div>
+
+      <div class="labels">
         <mat-form-field class="example-chip-list" appearance="outline">
           <mat-label>Tags</mat-label>
           <mat-chip-list #chipList aria-label="Tag selection">
@@ -37,13 +39,11 @@
         </mat-form-field>  
       </div>
 
-
       <nav>
         <div class="editor-btns">
           <button
             routerLink="/artikel"
             class="btn-outline-primary btn editor-btn"
-            (click)="onSubmit()"
           >
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
