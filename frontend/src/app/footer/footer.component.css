@@ -2,15 +2,14 @@
     position: relative;
     bottom: 0;
     width: 100%;
-    padding-bottom: 3em;
 	font-size: 75%;
 	line-height: 2em;
     background: #F6F6F6;
     height: 80px;
     font-family: sans-serif;
     text-align: center;
-	padding: 10px 0px;
-	margin-bottom: 20px;
+	padding: 0px 0px 0px 0px;
+	margin-bottom: 0px;
 }
 .pagefooter a {
 	display: inline-block;
