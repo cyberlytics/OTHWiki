@@ -105,7 +105,7 @@ Die Endpunkte (besonders die POST Routen) nutzen dabei ein automatisiertes Umwan
 Dies sorgt dafür, dass Pflichtfelder übergeben werden und nicht benötigte Elemente verworfen werden.\\
 Über einen PyMongo Client werden diese Dataclasses also entweder von Route zur Datenbank weitergeleitet, oder aus der Datenbank zur Route.
 Die Verbindung erfolgt dabei über eine \textbf{MONGO\_URI}, welche Hostnamen und Port beinhaltet. Dieser String sieht wie folgt aus: \textit{mongodb://localhost:27017/}. \\
-Als tatsächlicher Webserver wird \textbf{uvicorn} genutzt, welcher im \textbf{\_\_main\_\_.py} gestartet wird. Dies ermöglicht es, das Backend mittels des Befehlt \textit{python -m backend} zu starten
+Als tatsächlicher Webserver wird \textbf{uvicorn} genutzt, welcher im \textbf{\_\_main\_\_.py} gestartet wird. Dies ermöglicht es, das Backend mittels des Befehlt \textit{python -m backend} zu starten.
 
 \subsection{Tests}
 In einem separaten Testscript \textbf{test\_backend.py} werden die Routen getestet. 

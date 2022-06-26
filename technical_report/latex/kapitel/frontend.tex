@@ -1,1 +1,14 @@
 \section{FRONTEND}\label{ch:frontend}
+
+Mittels des Angular Frameworks wird eine Weboberfläche komponentenbasiert zur Verfügung
+gestellt. 
+
+Die einzelnen Komponenten lauten:
+\begin{itemize}
+\item \textbf{Artikel}: Holt sich einen Artikel über die \textbf{GET /article/\{id\}} Route und zeigt ihn in einer benutzerfreundlichen Ansicht an. Dabei wird ein Knopf zur verfügung gestellt, über welchen dieser Artikel bearbeitet werden kann.
+\item \textbf{Editor}: Wird der Editierknopf der Artikelkomponente gedrückt, beginnt eine weiterleitung über das Angular-Routing-Module zu dem Editor. Hier wurde der \textbf{Quill Rich Text Editor} eingebunden. Dieser bietet von Haus aus eine Reihe von Funktionalitäten über eine globale Config an. Innerhalb dieses Editors wird der alte Artikeltext inklusive vollem CSS-Styling angezeigt. Ebenso lässt sich der Titel des Artikels über ein \textbf{Contenteditible-Event} anpassen. Desweiteren wird unterhalb des Editors eine \textbf{Tag-Box} bereitgestellt, über die der User Tags hinzufügen und entfernen kann. Ist der User nun zufrieden mit seinen Anpassungen, kann er auf einen speichern Knopf drücken und die Änderungen über die \textbf{POST /articles/update} Route speichern oder seine Änderungen über einen abbrechen Knopf verwerfen.
+\item \textbf{Header}: Die Header-Komponente beinhaltet einerseits die drei wichtigsten Weiterleitungen eines Studenten: Das \textbf{Moodle-Portal}, das \textbf{Primuss-Portal} und die \textbf{Webmail-Oberfläche}. Darüberhinaus wird ein Suchfeld angeboten, über das der Nutzer nach Artikeln oder Tags suchen kann.
+\item \textbf{Sidebar}: Die Sidebar-Komponente gibt eine Übersicht über Kategorien, Unterkategorien und Artikeln. Durch klick auf die dort angezeigten Artikel wird der User entsprechend auf diesen Artikel weitergeleitet. 
+\item \textbf{Footer}: Die Footer-Komponente zeigt einige Basisinformationen, wie die Datenschutzvereinbarung an. 
+\item \textbf{Scroll-to-Top}: Diese Komponente stellt einen Knopf zur verfügung, welchen den User direkt zum Seitenanfang befördert ohne selbst scrollen zu müssen. 
+\end{itemize}
