@@ -24,11 +24,11 @@
           <mat-chip-list #chipList aria-label="Tag selection">
             <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
               {{tag}}
-              <button matChipRemove>
+              <button matChipRemove value="1">
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip>
-            <input placeholder="New tag..."
+            <input placeholder="Neuer Tag ..."
                    [matChipInputFor]="chipList"
                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                    [matChipInputAddOnBlur]="addOnBlur"
@@ -52,7 +52,7 @@
             class="btn-outline-primary btn editor-btn"
             (click)="onSubmit()"
           >
-            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Artikel speichern <i class="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>
       </nav>

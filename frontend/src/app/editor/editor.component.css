@@ -1,4 +1,5 @@
 @import "~font-awesome/css/font-awesome.min.css";
+
 .c {
 	min-height: calc(100vh - 80px);
 	padding: 40px;
@@ -10,6 +11,25 @@
 	min-height: calc(100vh - 80px);
 }
 
+.editor-btn {
+	padding: 5px;
+	margin: 5px;
+}
+
+.editor-btns {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.abstand {
+	padding: 40px 10px 24px 10px;
+}
+
+.fa {
+	margin: 5px;
+}
+
+/*Überschreibt Bootstrap*/
 #bootstrap-overrides button {
 	color: #F29400;
 	border-color: #F29400;
@@ -32,31 +52,17 @@
 	box-shadow: 0 0 0 .25rem rgba(253, 157, 13, 0.25);
 }
 
-#bootstrap-overrides input:focus {
-	color: #292521;
-	background-color: #fff;
-	border-color: #fed286;
-	outline: 0;
-	box-shadow: 0 0 0 .25rem rgba(253, 157, 13, 0.25);
+#bootstrap-overrides button[value='1'] {
+	color: #002B5C;
+	border-color: #F29400;
+	background-color: transparent;
 }
 
-.editor-btn {
-	padding: 5px;
-	margin: 5px;
+#bootstrap-overrides button[value='1']:hover {
+	color: #A16200;
+	color: #F29400;
 }
-
-.editor-btns{
-    display: flex;
-	justify-content: flex-end;
-}
-
-.abstand{
-	padding-top: 40px;
-}
-
-.fa{
-		margin: 5px;
-}
+/*End Überschreibt Bootstrap*/
 
 @media print {
 
@@ -177,11 +183,11 @@ a:visited {
 	text-decoration: none;
 }
 
-#bootstrap-overrides{
+#bootstrap-overrides {
 	border-radius: 10px;
 	background-color: #FFF !important;
 }
 
-.example-chip-list{
+.example-chip-list {
 	width: 100%;
 }

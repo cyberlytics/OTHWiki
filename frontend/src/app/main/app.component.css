@@ -1,4 +1,6 @@
-
+.content {
+    margin: 16px 36px 36px 36px !important;
+}
 mat-toolbar {
     background: #F6F6F6;
     color: white;
@@ -21,6 +23,10 @@ button{
 
 .mat-icon{
     color: #F29400;
+}
+
+.mat-focus-indicator::before {
+    border: none;
 }
 
 
@@ -57,7 +63,8 @@ mat-sidenav-container {
 }
 
 .mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
-    padding-left: 40px;
+    padding-left: 50px;
+    top: 50px;
 }
 
 
@@ -70,6 +77,10 @@ mat-sidenav-container {
  @media screen and (max-width: 800px) {
     .mat-toolbar-row, .mat-toolbar-single-row {
         display: flex;
+    }
+
+    .content {
+        margin: 0px 36px 36px 36px !important;
     }
 }
 
