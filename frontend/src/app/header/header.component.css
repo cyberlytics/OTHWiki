@@ -32,7 +32,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 23px 4%;
+    padding: 23px 4% 6px 4%;
     background-color: #F6F6F6;
 }
 
@@ -48,6 +48,14 @@ nav {
     padding-top: 0;
     padding-bottom: 0;
 }
+
+.navbar-toggler{
+    margin-left: auto;
+}
+
+.w-auto {
+    flex: 1 !important;
+  }
 
 /*Überschreibt Bootstrap*/
 #bootstrap-overrides button {
@@ -113,30 +121,30 @@ nav {
     left: 0;
     right: 0;
     margin: 0 auto;
-    -webkit-transition: width 0.8s ease, background-color 1s ease;
-    -moz-transition: width 0.8s ease, background-color 1s ease;
+    -webkit-transition: width 0.9s ease, background-color 1s ease;
+    -moz-transition: width 0.9s ease, background-color 1s ease;
     ;
-    -ms-transition: width 0.8s ease, background-color 1s ease;
+    -ms-transition: width 0.9s ease, background-color 1s ease;
     ;
-    -o-transition: width 0.8s ease, background-color 1s ease;
+    -o-transition: width 0.9s ease, background-color 1s ease;
     ;
-    transition: width 0.8s ease, background-color 1s ease;
+    transition: width 0.9s ease, background-color 1s ease;
     ;
     top: 25px;
 }
 
 .hover-effect:hover {
     color: #F29400 !important;
-    -webkit-transition: color 0.8s ease;
-    -moz-transition: color 0.8s ease;
-    -ms-transition: color 0.8s ease;
-    -o-transition: color 0.8s ease;
-    transition: color 0.8s ease;
+    -webkit-transition: color 0.9s ease;
+    -moz-transition: color 0.9s ease;
+    -ms-transition: color 0.9s ease;
+    -o-transition: color 0.9s ease;
+    transition: color 0.9s ease;
 }
 
 .hover-effect:hover:after,
 .hover-effect:focus:after {
-    width: 75%;
+    width: 65%;
     background-color: #F29400;
 }
 
@@ -155,18 +163,19 @@ nav {
         margin: 10px;
     }
 
-    .header-container {
-        padding: 15px 50px;
-        margin: 0;
+    .links a{
+        display: block;
     }
 
     .header-container {
-        padding: 15px 50px 15px 30px;
+        padding: 15px 50px;
+        margin: 0;
     }
 
     .navbar-brand {
         justify-content: center;
         display: flex;
         flex: 1;
+        padding: 15px 50px 15px 100px;
     }
 }
