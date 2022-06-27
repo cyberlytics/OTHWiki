@@ -1,6 +1,7 @@
 import { Component, NgModule, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; 
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
+import { catchError, throwError } from 'rxjs';
+import {NavItems} from '../dataclasses';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,8 +11,9 @@ import { Observable } from 'rxjs';
 
 export class SidebarComponent implements OnInit {
 
-  navItems: any;
-  path= 'http://127.0.0.1:8000/categories/';
+  categories: any;
+  test: any;
+  path= 'http://127.0.0.1:8000/categories';
 
   constructor(private http: HttpClient) { 
     
@@ -22,14 +24,27 @@ export class SidebarComponent implements OnInit {
   }
 
   loadNavItems(){
-    this.http.get(this.path).subscribe(res => {
-      console.log('res', res)
+    this.http.get<NavItems[]>(this.path).pipe(catchError(this.handleError)).subscribe((data) =>  {
+      this.categories = data;
+      console.log("##########################################");
+      console.log(data)
+      console.log(this.categories)
+      console.log("##########################################");
     });
-    console.log(this.navItems);
+    
   }
-}
-export interface NavItems {
-  heroesUrl: string;
-  textfile: string;
-  date: any;
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
 }

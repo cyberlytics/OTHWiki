@@ -8,22 +8,52 @@
   <mat-divider></mat-divider>
 
   <div class="navigation">
-    <ul>
-      <li><a href="#">Main page</a></li>
-      <li><a href="#">Contents</a></li>
-      <li><a href="#">Featured content</a></li>
-    </ul>
-    <h3>Arikel</h3>
-    <ul>
-      <li><a href="#">Help</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Portal</a></li>
-    </ul>
-    <h3>Zusatz</h3>
-    <ul>
-      <li><a href="#">Help</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Portal</a></li>
-    </ul>
+    <ng-container *ngIf="!(categories === null)">
+      <ul>
+        <!-- Iteriert durch alle Kategorien durch -->
+        <li *ngFor="let Kategorie of categories; let i = index">
+          <div>{{Kategorie.kategorie}}</div>
+          
+          <ul>
+            <!-- Iteriert durch alle zugehörigen Artikel -->
+            <li *ngFor="let Artikel of Kategorie.artikel; let z = index">
+              <div>{{Artikel.artikel_name}}</div>
+            </li>
+          </ul>
+          
+            <!-- Alle Subkategorien -->          
+            <ul *ngIf="!(Kategorie.subkategorien === null)">
+              <!-- Iteriert durch alle 1. Subkategorien -->
+              <li *ngFor="let Subkategorie of Kategorie.subkategorien; let y = index">
+                <div>{{Subkategorie.kategorie}}</div>
+                <ul>
+                  <!-- Iteriert durch alle Artikel der 1. Subkategorien -->
+                  <li *ngFor="let Subkategorieartikel of Subkategorie.artikel; let x = index">
+                    <div>{{Subkategorieartikel.artikel_name}}</div>
+                  </li>
+                </ul>
+                  <!-- Iteriert durch alle 2. Subkategorien -->
+                  <ul *ngIf="!(Kategorie.subkategories === null)">
+                    <li *ngFor="let Subkategorie1 of Subkategorie.subkategorien; let c = index">
+                      <div>{{Subkategorie1.kategorie}}</div>
+                      <ul>
+                        <!-- Iteriert durch alle Artikel der 2. Subkategorien -->
+                        <li *ngFor="let Subkategorie1artikel of Subkategorie1.artikel; let x = index">
+                          <div>{{Subkategorie1artikel.artikel_name}}</div>
+                          <!-- möglichkeit gleich link mit artikel id einzubinden? -->
+                          <!-- oth-wiki.de/article/[Subkategorie1artikel.artikel_id] -->
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+              </li>
+            </ul>
+            
+            <mat-divider></mat-divider>
+
+        </li>
+      </ul>
+    </ng-container>
+    
   </div>
 </div>
