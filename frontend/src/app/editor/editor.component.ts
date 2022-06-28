@@ -7,6 +7,7 @@ import { Article, updateArticle, OldVersions, NavItems } from '../dataclasses';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Router } from '@angular/router'
 
 import { AppSettings } from 'src/app/app.config';
 
@@ -24,11 +25,11 @@ interface Cat {
   styleUrls: ['./editor.component.css'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class EditorComponent implements OnInit {
-  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
-  }
+export class EditorComponent implements OnInit {
+  constructor(private http: HttpClient, private router:Router) { }
+
+  ngOnInit(): void {}
 
   //#region Tags Leiste
   // ----- Tags Leiste ----- ///
@@ -140,8 +141,8 @@ export class EditorComponent implements OnInit {
 
 
   //TODO: Needs to be changed for real ArticleID
-  //FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
-  FIXED_ARTICLE_ID = ""
+  FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
+  //FIXED_ARTICLE_ID = ""
   FIXED_TAGS = ["Testing"]
 
   /**
@@ -196,6 +197,11 @@ export class EditorComponent implements OnInit {
     });
   }
 
+  deleteArticleByID(id: string) {
+    return this.http.delete<Article>(this.path + "articles/" + id).pipe(catchError(this.handleError)).subscribe(() => {
+    })
+  }
+
   /**
    * Handels HTTP Request errors
    * @param error Error Thrown by the request
@@ -247,14 +253,14 @@ export class EditorComponent implements OnInit {
       }
       this.postNewArticle(art)
     }
-
-
   }
 
+  //{TODO} adjust to dynamic routing
   //delete button with confirmation
-  clickMethod(name: string) {
-    if(confirm("Are you sure to delete "+name)) {
-      console.log("Implement delete functionality here");
+  clickMethod() {
+    if(confirm("Bist du sicher das du diesen Artikel löschen möchtest")) {
+      this.deleteArticleByID(this.FIXED_ARTICLE_ID);
+      this.router.navigate(['/']);
     }
   }
 
