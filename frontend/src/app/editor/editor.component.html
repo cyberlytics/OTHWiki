@@ -1,13 +1,45 @@
 <body id="bootstrap-overrides">
+  <nav>
+    <button
+      value="500"
+      routerLink="/edit"
+      class="btn-outline-primary btn delete-btn"
+      (click)="clickMethod('confirm')"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-trash-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 
+      1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+        />
+      </svg>
+    </button>
+  </nav>
   <div class="c">
     <div class="editor">
-      <h1 contenteditable id="title" onkeypress="return (this.innerText.length <= 30)" (keydown)="titleChanged($event)"
-        onpaste="return false;">
-        {{articleName}}
+      <h1
+        contenteditable
+        id="title"
+        onkeypress="return (this.innerText.length <= 30)"
+        (keydown)="titleChanged($event)"
+        onpaste="return false;"
+      >
+        {{ articleName }}
       </h1>
       <div class="col-md-12">
-        <quill-editor [styles]="{ height: '400px' }" [modules]="config" (onEditorChanged)="changedEditor($event)"
-          (onEditorCreated)="createQuill($event)" [(ngModel)]="oldText">
+        <quill-editor
+          [styles]="{ height: '400px' }"
+          [modules]="config"
+          (onEditorChanged)="changedEditor($event)"
+          (onEditorCreated)="createQuill($event)"
+          [(ngModel)]="oldText"
+        >
         </quill-editor>
       </div>
 
@@ -16,25 +48,29 @@
           <mat-label>Tags</mat-label>
           <mat-chip-list #chipList aria-label="Tag selection">
             <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
-              {{tag}}
+              {{ tag }}
               <button matChipRemove value="1">
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip>
-            <input placeholder="Neuer Tag ..." [matChipInputFor]="chipList"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-              (matChipInputTokenEnd)="addTag($event)">
+            <input
+              placeholder="Neuer Tag ..."
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="addTag($event)"
+            />
           </mat-chip-list>
         </mat-form-field>
       </div>
 
-      <div [hidden] = "hideCategories">
+      <div [hidden]="hideCategories">
         <h4>Kategorie</h4>
         <mat-form-field appearance="fill">
           <mat-label>Artikel Kategorie</mat-label>
           <mat-select [(ngModel)]="selectedValue" name="cat">
             <mat-option *ngFor="let cat of cats" [value]="cat.value">
-              {{cat.viewValue}}
+              {{ cat.viewValue }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -42,10 +78,17 @@
 
       <nav>
         <div class="editor-btns">
-          <button routerLink="/artikel" class="btn-outline-primary btn editor-btn">
+          <button
+            routerLink="/artikel"
+            class="btn-outline-primary btn discard-btn"
+          >
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
-          <button routerLink="/artikel" class="btn-outline-primary btn editor-btn" (click)="onSubmit()">
+          <button
+            routerLink="/artikel"
+            class="btn-outline-primary btn editor-btn"
+            (click)="onSubmit()"
+          >
             Artikel speichern <i class="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>

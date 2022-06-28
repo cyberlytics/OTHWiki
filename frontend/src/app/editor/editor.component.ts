@@ -216,8 +216,6 @@ export class EditorComponent implements OnInit {
   }
 
   //#endregion
-
-  //logging on button click to not cluster the console
   onSubmit() {
     
     //making sure titles can't be changed to null or empty strings
@@ -251,6 +249,27 @@ export class EditorComponent implements OnInit {
     }
 
 
+  }
+
+  //delete button with confirmation
+  clickMethod(name: string) {
+    if(confirm("Are you sure to delete "+name)) {
+      console.log("Implement delete functionality here");
+    }
+  }
+
+  //delete button with confirmation
+  clickMethod(name: string) {
+    if(confirm("Are you sure to delete "+name)) {
+      console.log("Implement delete functionality here");
+    }
+  }
+
+  //delete button with confirmation
+  clickMethod(name: string) {
+    if(confirm("Are you sure to delete "+name)) {
+      console.log("Implement delete functionality here");
+    }
   }
 
   config = {

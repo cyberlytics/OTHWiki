@@ -56,6 +56,29 @@
 	color: #A16200;
 	color: #F29400;
 }
+
+/*Edit-Button beim Artikel*/
+#bootstrap-overrides button[value='500'] {
+	color: #F29400;
+	border-color: #F29400;
+	background-color: #fff;
+}
+
+#bootstrap-overrides button[value='500']:hover {
+	color: #fff;
+	background-color: #F29400;
+	border-color: #F29400;
+}
+
+#bootstrap-overrides button[value='500']:active {
+	color: #fff;
+	background-color: #F29400;
+	border-color: #F29400;
+}
+
+#bootstrap-overrides button[value='500']:focus {
+	box-shadow: 0 0 0 .25rem rgba(253, 157, 13, 0.25);
+}
 /*End Überschreibt Bootstrap*/
 
 @media print {
@@ -184,4 +207,18 @@ a:visited {
 
 .example-chip-list {
 	width: 100%;
+}
+.delete-btn {
+	padding: 5px;
+	float: right;
+	margin: 10px 10px 0 0;
+	width: 40px;
+	height: 38px;
+}
+
+.discard-btn {
+	padding: 5px;
+	margin: 5px;
+	width: 38px;
+	height: 38px;
 }
