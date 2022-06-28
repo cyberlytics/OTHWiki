@@ -180,7 +180,11 @@ nav {
     }
 
     .hover-effect:after {
-        margin: 5px auto;
+        margin: 6px auto;
         height: 3px;
+    }
+
+    .hover-effect:hover:after, .hover-effect:focus:after {
+        width: 85px;
     }
 }
