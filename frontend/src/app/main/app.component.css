@@ -76,21 +76,4 @@ mat-sidenav-container {
     .mat-toolbar-row, .mat-toolbar-single-row {
         margin: -32px 0px 0px 0px;
     }
-
-    .content {
-        margin: 16px 36px 16px 36px !important;
-    }
-    
-}
-
- /*Tablet & Mobile*/
- @media screen and (max-width: 992px) {
-
-    .content {
-        margin: 28px 36px 16px 36px !important;
-    }
-    
-    mat-sidenav {
-        margin: 28px 16px 16px 16px !important;
-    }
 }
