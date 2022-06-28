@@ -68,7 +68,7 @@ Die meisten Felder dienen den Informationen des Artikels, wie etwa \textbf{artik
 Das \textbf{kategorie} Feld dient zur Verbindung mit entsprechender Kategorie.
 Sollte ein Artikel geupdated werden, wird die alte Version in dem Feld \textbf{old\_versions} hinterlegt, und die Inhalte der anderen Felder geupdated.\\
 
-Die Datenbankobjekte werdem im Code als Pydantic Dataclasses hinterlegt, was das Parsen dieser Objekte (z.B. als JSON Payload) erleichtert. 
+Die Datenbankobjekte werden im Code als Pydantic Dataclasses hinterlegt, was das Parsen dieser Objekte (z.B. als JSON Payload) erleichtert. 
 Dabei werden die Klassen mit dem Decorator \textbf{@dataclass} verziert und erhalten \textbf{TypeHints} mit entsprechden Datentypen
 
 \begin{lstlisting}[language=python,caption={Kategorie Dataclass},captionpos=b,showstringspaces=false, basicstyle=\small,label={lst:dataclass}]
@@ -87,7 +87,7 @@ Mittels dem Python Framework \textbf{FastAPI} werden diverse Endpoints bereitges
 Für Kategorien gibt es dabei folgende Datenpunkte:
 \begin{itemize}
 \item \textbf{GET /categories}: Alle Kategorien werden hierarchisch sortiert und ausgegeben.
-\item \textbf{GET /categories/\{id oder name\}}: Eine bestimmte Kategorie wird ausgegeben. Kann auch genutzt werden, um zu prüfen ob eine Kategorie existiert 
+\item \textbf{GET /categories/\{id oder name\}}: Eine bestimmte Kategorie wird ausgegeben. Kann auch genutzt werden, um zu prüfen, ob eine Kategorie existiert 
 \item \textbf{POST /categories}: Anlegen einer neuen Kategorie
 \item \textbf{DELETE /categories/\{id\}}: Löschen einer Kategorie mittels der ID
 \end{itemize}

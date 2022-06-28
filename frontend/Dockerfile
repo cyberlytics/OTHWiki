@@ -27,12 +27,9 @@ FROM nginx:1.21
 #copy build from the 'build env'
 COPY --from=build /app/dist /usr/share/nginx/html
 
-#use the dev config for only http 
-#for the other config u need certs, otherwise the container won't start
-COPY nginx.conf.dev.template /etc/nginx/conf.d/default.conf
+#nginx config without ssl
+COPY nginx.conf.template /etc/nginx/conf.d/default.conf
 
-#Prod config
-#COPY nginx.conf.prod.template /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 EXPOSE 443
