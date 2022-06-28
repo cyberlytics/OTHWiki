@@ -7,6 +7,9 @@ import { Article, updateArticle, OldVersions } from '../dataclasses';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+
+import { AppSettings } from 'src/app/app.config';
+
 export interface TagItem {
   name: string;
 }
@@ -64,7 +67,7 @@ export class EditorComponent implements OnInit {
   // ----- Editor ----- //
 
   editor: Quill;
-  path = 'http://127.0.0.1:8000/';
+  path = AppSettings.API_ENDPOINT;
   title = 'frontend';
   editorText = '';
   oldText = ``;
