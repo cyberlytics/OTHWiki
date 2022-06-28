@@ -1,5 +1,5 @@
 .content {
-    margin: 18px 36px 36px 36px !important;
+    margin: 16px 36px 36px 36px !important;
 }
 mat-toolbar {
     background: #F6F6F6;
@@ -7,7 +7,6 @@ mat-toolbar {
 }
 
 mat-sidenav {
-    margin: 8px 16px 16px 16px;
     width: 200px;
     border-right: none;
     background: #002b5c;
@@ -33,7 +32,6 @@ button{
 .content {
     height: auto;
     border-radius: 10px;
-    margin: 8px 16px 16px 16px;
     margin-left: 32px;
 
     /* display: flex;
@@ -76,12 +74,6 @@ mat-sidenav-container {
  /*Tablet & Mobile*/
  @media screen and (max-width: 800px) {
     .mat-toolbar-row, .mat-toolbar-single-row {
-        display: flex;
-    }
-
-    .content {
-        margin: 18px 36px 18px 36px !important;
+        margin: -32px 0px 0px 0px;
     }
 }
-
-
