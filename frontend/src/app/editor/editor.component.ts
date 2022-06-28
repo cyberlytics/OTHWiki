@@ -3,12 +3,16 @@ import { EditorChangeContent, EditorChangeSelection, QUILL_CONFIG_TOKEN } from '
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import Quill from 'quill';
-import { Article, updateArticle, OldVersions } from '../dataclasses';
+import { Article, updateArticle, OldVersions, NavItems } from '../dataclasses';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 export interface TagItem {
   name: string;
+}
+interface Cat {
+  value: string;
+  viewValue: string;
 }
 
 @Component({
@@ -20,7 +24,8 @@ export interface TagItem {
 export class EditorComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   //#region Tags Leiste
   // ----- Tags Leiste ----- ///
@@ -28,6 +33,7 @@ export class EditorComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];
   static readonly MAX_TAG_SIZE: number = 50
+  hideCategories: boolean = true;
 
   /**
    * Wird aufgerufen, wenn ein Tag hinzugefügt wird.
@@ -57,6 +63,15 @@ export class EditorComponent implements OnInit {
       this.tags.splice(index, 1);
     }
   }
+
+  //#endregion
+
+  //#region Kategorie Dropdown
+
+  selectedValue: string;
+
+  cats: Cat[];
+  rawCats: NavItems[];
 
   //#endregion
 
@@ -90,6 +105,11 @@ export class EditorComponent implements OnInit {
   createQuill(quill: Quill) {
     this.editor = quill;
     this.getArticleByID(this.FIXED_ARTICLE_ID);
+    //Falls neuer Artikel erstellt werden soll.
+    if(this.FIXED_ARTICLE_ID == ""){
+      this.hideCategories=false;
+      this.getAllCategories();
+    }
   }
 
   /**
@@ -117,7 +137,8 @@ export class EditorComponent implements OnInit {
 
 
   //TODO: Needs to be changed for real ArticleID
-  FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
+  //FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
+  FIXED_ARTICLE_ID = ""
   FIXED_TAGS = ["Testing"]
 
   /**
@@ -143,6 +164,33 @@ export class EditorComponent implements OnInit {
       this.tags = res.tags;
       this.articleName = res.artikel_name;
     })
+  }
+
+  getAllCategories(){
+    this.http.get<NavItems[]>(this.path + "categories").pipe(catchError(this.handleError)).subscribe((data) =>  {
+      this.rawCats = data;
+      console.log("XXXX", this.rawCats);
+      var array: Cat[]= [];
+
+      //Als current Oberobjekt wird ein Leeres Objekt generiert, das als Subkategorien Alle Oberkategorien enthält.
+      this.addSubcategoriesRecursive(array, {_id: "", kategorie: "null", subkategorien: this.rawCats, artikel: []})
+      this.cats = array;
+    })
+  }
+
+  postNewArticle(art: Article) {
+    return this.http.post<Article>(this.path + "articles", art).pipe(catchError(this.handleError))
+      .subscribe((res) => {
+      })
+    }
+
+  addSubcategoriesRecursive(array: Cat[], current: NavItems){
+    current.subkategorien.forEach(element => {
+      array.push({value: element._id, viewValue: element.kategorie});
+      if(element.subkategorien != null){
+        this.addSubcategoriesRecursive(array, element);
+      }
+    });
   }
 
   /**
@@ -175,15 +223,31 @@ export class EditorComponent implements OnInit {
       this.articleName = tempTitle;
     }
 
-    var update: updateArticle = {
-      artikel_name: this.articleName,
-      artikel_text: this.editorText,
-      tags: this.tags,
-      artikel_id: this.FIXED_ARTICLE_ID
+    //Update Article
+    if(this.hideCategories){
+      var update: updateArticle = {
+        artikel_name: this.articleName,
+        artikel_text: this.editorText,
+        tags: this.tags,
+        artikel_id: this.FIXED_ARTICLE_ID
+      }
+      //Send the HTTP Request
+      var x = this.postUpdateArticle(update)
+    }else{
+      //Generate new Article
+
+      console.log(this.selectedValue);
+      var art: Article = {
+        artikel_name: this.articleName,
+        artikel_text: this.editorText,
+        kategorie: this.selectedValue,
+        current_version: 1,
+        tags: this.tags
+      }
+      this.postNewArticle(art)
     }
 
-    //Send the HTTP Request
-    var x = this.postUpdateArticle(update)
+
   }
 
   config = {

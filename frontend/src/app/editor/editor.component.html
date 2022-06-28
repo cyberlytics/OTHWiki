@@ -1,22 +1,13 @@
 <body id="bootstrap-overrides">
   <div class="c">
     <div class="editor">
-      <h1 
-        contenteditable 
-        id="title" 
-        onkeypress="return (this.innerText.length <= 30)" 
-        (keydown)="titleChanged($event)"
+      <h1 contenteditable id="title" onkeypress="return (this.innerText.length <= 30)" (keydown)="titleChanged($event)"
         onpaste="return false;">
         {{articleName}}
       </h1>
       <div class="col-md-12">
-        <quill-editor
-          [styles]="{ height: '400px' }"
-          [modules]="config"
-          (onEditorChanged)="changedEditor($event)"
-          (onEditorCreated)="createQuill($event)"
-          [(ngModel)]="oldText"
-        >
+        <quill-editor [styles]="{ height: '400px' }" [modules]="config" (onEditorChanged)="changedEditor($event)"
+          (onEditorCreated)="createQuill($event)" [(ngModel)]="oldText">
         </quill-editor>
       </div>
 
@@ -30,28 +21,31 @@
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip>
-            <input placeholder="Neuer Tag ..."
-                   [matChipInputFor]="chipList"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="addTag($event)">
+            <input placeholder="Neuer Tag ..." [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="addTag($event)">
           </mat-chip-list>
-        </mat-form-field>  
+        </mat-form-field>
+      </div>
+
+      <div [hidden] = "hideCategories">
+        <h4>Kategorie</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>Artikel Kategorie</mat-label>
+          <mat-select [(ngModel)]="selectedValue" name="cat">
+            <mat-option *ngFor="let cat of cats" [value]="cat.value">
+              {{cat.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <nav>
         <div class="editor-btns">
-          <button
-            routerLink="/artikel"
-            class="btn-outline-primary btn editor-btn"
-          >
+          <button routerLink="/artikel" class="btn-outline-primary btn editor-btn">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
-          <button
-            routerLink="/artikel"
-            class="btn-outline-primary btn editor-btn"
-            (click)="onSubmit()"
-          >
+          <button routerLink="/artikel" class="btn-outline-primary btn editor-btn" (click)="onSubmit()">
             Artikel speichern <i class="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>
