@@ -2,14 +2,14 @@
 
   //Objektaufbau der Artikel 
   export interface Article{
-    _id: string;
+    _id?: string;
     artikel_name: string;
     artikel_text: string;
     kategorie: string;
     current_version: number;
-    created: Date;
+    created?: Date;
     tags: Array<string>;
-    old_versions: Array<OldVersions>;
+    old_versions?: Array<OldVersions>;
   }
   //Objektaufbau der Alten Versionen von Artikel
   export interface OldVersions{
