@@ -258,20 +258,6 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  //delete button with confirmation
-  clickMethod(name: string) {
-    if(confirm("Are you sure to delete "+name)) {
-      console.log("Implement delete functionality here");
-    }
-  }
-
-  //delete button with confirmation
-  clickMethod(name: string) {
-    if(confirm("Are you sure to delete "+name)) {
-      console.log("Implement delete functionality here");
-    }
-  }
-
   config = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
