@@ -2,7 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
 import { catchError, throwError } from 'rxjs';
 import {NavItems} from '../dataclasses';
-
+import { AppSettings } from 'src/app/app.config';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -13,7 +13,7 @@ export class SidebarComponent implements OnInit {
 
   categories: any;
   test: any;
-  path= 'http://127.0.0.1:8000/categories';
+  path = AppSettings.API_ENDPOINT + 'categories';
 
   constructor(private http: HttpClient) { 
     

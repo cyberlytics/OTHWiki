@@ -3,6 +3,8 @@ import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Article, updateArticle, OldVersions } from '../dataclasses';
 
+import { AppSettings } from 'src/app/app.config';
+
 @Component({
   selector: 'app-artikel',
   templateUrl: './artikel.component.html',
@@ -17,7 +19,7 @@ export class ArtikelComponent implements OnInit {
     FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
     FIXED_TAGS = ["Testing"]
 
-    path= 'http://127.0.0.1:8000/';
+    path = AppSettings.API_ENDPOINT;
 
     articleText='';
     articleName='';
