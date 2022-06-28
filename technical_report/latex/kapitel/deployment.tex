@@ -6,7 +6,7 @@ Im Folgenden werden die einzelnen Bestandteile des Deployments detailliert erlä
 
 \subsection{Backend Dockerfile}
 
-Für das Backend wird ein relativ simpler Container gebaut. Listing \ref{lst:backend_dockerfile} zeigt die entsprechendes Dockerfile.
+Für das Backend wird ein relativ simpler Container gebaut. Listing \ref{lst:backend_dockerfile} zeigt das entsprechende Dockerfile.
 \begin{lstlisting}[caption={Backend Dockerfile},captionpos=b,showstringspaces=false, basicstyle=\small,,label={lst:backend_dockerfile}]
 FROM python:3.10-slim
 
@@ -20,7 +20,7 @@ CMD ["-m", "backend"]
 \end{lstlisting}
 
 Als Basis wird dabei ein Python Container genutzt (Zeile 1). 
-In diesen werden die Requirements rein kopiert und anschließend installiert (Zeile 2-3).
+In diesen werden die Requirements reinkopiert und anschließend installiert (Zeile 2-3).
 Der restliche Code wird erst im Anschluss kopiert (Zeile 6). 
 Dies hat den Vorteil, dass der Container nach Zeile 4 gecached werden kann. 
 Dadurch müssen die Requirements nur neu installiert werden, wenn sich eine Dependency geändert hat, nicht jedoch nach Codeänderungen. 
@@ -29,7 +29,7 @@ Eine zusätzliche Optimierung dieses Containers ist die Nutzung einer \textbf{.d
 
 \subsection{Frontend Dockerfile}
 
-Angular kann aus allen Komponenten und Modulen eine einzige \textbf{html}-Seite erzeugen, welche danach mittels eines Webservers bereit gestellt werden kann. Diese beiden Aufgaben werden von dem Frontend Dockerfile übernommen. Dieses wird in Listing \ref{lst:frontend_dockerfile} dargestellt.
+Angular kann aus allen Komponenten und Modulen eine einzige \textbf{html}-Seite erzeugen, welche danach mittels eines Webservers bereitgestellt werden kann. Diese beiden Aufgaben werden von dem Frontend Dockerfile übernommen. Dieses wird in Listing \ref{lst:frontend_dockerfile} dargestellt.
 
 \begin{lstlisting}[caption={Backend Dockerfile},captionpos=b,showstringspaces=false, basicstyle=\small,label={lst:frontend_dockerfile}]
 FROM node:16.15-bullseye as build
@@ -109,7 +109,7 @@ services:
 Der \textbf{MongoDB} Service (Zeile 4-11) benutzt dabei ein \textit{mongo}-Containerimage in der Standardausführung.
 Durch Mounten eines Laufwerkordners (was hier ausgeklammert ist), könnten die Daten persistent auf dem Host gespeichert werden, wodurch diese unabhängig von dem Container vorliegen würden. \\
 Der \textbf{Backend} Service (Zeile 12-19) nutzt das bereits beschriebene Dockerfile. Eine Besonderheit hierbei ist, dass der Service von der MongoDB abhängig ist, und erst startet, sobald die Datenbank gestartet wurde.\\
-Der \textbf{Frontend} Service (Zeile 20-28) ist abhängig von den anderen beiden, weshalb dieser als letztes startet. \\
+Der \textbf{Frontend} Service (Zeile 20-28) ist abhängig von den anderen beiden, weshalb dieser als Letztes startet. \\
 
 Neben Host- und Containername werden noch Ports spezifiziert. 
 Diese sorgt dafür, dass Ports innerhalb eines Containers, auch durch Ports des Hosts erreicht werden können. 
@@ -119,7 +119,10 @@ Sollten also alle Services auf dem gleichen Server liegen, sollte nur der Port 8
 Sofern Docker läuft, kann die ganze Webanwendung mittels des Befehls \textbf{docker-compose up [\texttt{-{}-}flags]} gestartet werden.
 
 \subsection{Nginx}\label{ch:nginx}
+Der Nginx Server, welcher im Frontend Docker Container läuft, besitzt 2 Aufgaben:
 \begin{itemize}
-\item Serven der Website
-\item Proxy für das Backend
+\item \textbf{Serven der Website}: Nach dem Build enteht eine einzige Website , welche von Nginx an den Client ausgeliefert wird
+\item \textbf{Proxy für das Backend}: Um Probleme wie z.B. CORS zu lösen, wird das Backend hinter einen Proxy gestellt, welcher entsprechende Header hinzufügt
 \end{itemize}
+
+Über das Template File \textit{nginx.conf.template} wird die entsprechende Funktionalität konfiguriert
