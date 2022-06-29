@@ -222,8 +222,8 @@ export class EditorComponent implements OnInit {
   }
 
   //#endregion
-  onSubmit() {
-    
+  async onSubmit() {
+  
     //making sure titles can't be changed to null or empty strings
     var tempTitle = document.getElementById('title')!.innerText;
     if(tempTitle.length > 0 && !null){
@@ -253,6 +253,8 @@ export class EditorComponent implements OnInit {
       }
       this.postNewArticle(art)
     }
+
+    await this.delay(100);
   }
 
   //{TODO} adjust to dynamic routing
@@ -263,6 +265,11 @@ export class EditorComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
+
+  private delay(ms: number) {
+    console.log("SHOULD BE DELAYED")
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 
   config = {
     toolbar: [
