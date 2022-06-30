@@ -25,6 +25,9 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import {MatChipsModule} from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
+import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -38,6 +41,7 @@ import {MatSelectModule} from '@angular/material/select';
     HeaderComponent,
     rountingComponents,
     ScrollToTopComponent,
+    CategoriesDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,12 +56,14 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatInputModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MdbCollapseModule,  
     MatChipsModule,
     RouterModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
