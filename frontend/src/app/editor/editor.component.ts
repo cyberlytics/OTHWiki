@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EditorChangeContent, EditorChangeSelection, QUILL_CONFIG_TOKEN } from 'ngx-quill';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Subscription, throwError } from 'rxjs';
 import Quill from 'quill';
 import { Article, updateArticle, OldVersions, NavItems } from '../dataclasses';
-
+import { ActivatedRoute } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router'
@@ -27,7 +27,7 @@ interface Cat {
 })
 
 export class EditorComponent implements OnInit {
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient, private router:Router,  private _Activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {}
 
@@ -108,9 +108,14 @@ export class EditorComponent implements OnInit {
  */
   createQuill(quill: Quill) {
     this.editor = quill;
-    this.getArticleByID(this.FIXED_ARTICLE_ID);
+    this.subscription = this._Activatedroute.paramMap.subscribe(params => { 
+      this.id = params.get('id'); 
+      console.log("subscribe");
+      console.log(this.id);
+  });
+    this.getArticleByID(this.id);
     //Falls neuer Artikel erstellt werden soll.
-    if(this.FIXED_ARTICLE_ID == ""){
+    if(this.id === undefined || this.id === null){
       this.hideCategories=false;
       this.getAllCategories();
     }
@@ -141,8 +146,10 @@ export class EditorComponent implements OnInit {
 
 
   //TODO: Needs to be changed for real ArticleID
-  FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
-  //FIXED_ARTICLE_ID = ""
+  //FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
+  private subscription: Subscription;
+  id: any;
+  FIXED_ARTICLE_ID = ""
   FIXED_TAGS = ["Testing"]
 
   /**
@@ -153,6 +160,7 @@ export class EditorComponent implements OnInit {
   postUpdateArticle(update: updateArticle) {
     return this.http.post<updateArticle>(this.path + "articles/update", update).pipe(catchError(this.handleError))
       .subscribe((res) => {
+        this.router.navigateByUrl('/artikel/'+this.id);
       })
   }
 
@@ -183,8 +191,11 @@ export class EditorComponent implements OnInit {
   }
 
   postNewArticle(art: Article) {
-    return this.http.post<Article>(this.path + "articles", art).pipe(catchError(this.handleError))
+    return this.http.post<string>(this.path + "articles", art).pipe(catchError(this.handleError))
       .subscribe((res) => {
+        this.id = res;
+        console.log("NEUE ID:",this.id)
+        this.router.navigateByUrl('/artikel/'+this.id);
       })
     }
 
@@ -236,7 +247,7 @@ export class EditorComponent implements OnInit {
         artikel_name: this.articleName,
         artikel_text: this.editorText,
         tags: this.tags,
-        artikel_id: this.FIXED_ARTICLE_ID
+        artikel_id: this.id
       }
       //Send the HTTP Request
       var x = this.postUpdateArticle(update)
@@ -259,7 +270,7 @@ export class EditorComponent implements OnInit {
   //delete button with confirmation
   clickMethod() {
     if(confirm("Bist du sicher das du diesen Artikel löschen möchtest")) {
-      this.deleteArticleByID(this.FIXED_ARTICLE_ID);
+      this.deleteArticleByID(this.id);
       this.router.navigate(['/']);
     }
   }
