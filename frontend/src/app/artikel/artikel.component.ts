@@ -14,7 +14,19 @@ import { AppSettings } from 'src/app/app.config';
 })
 export class ArtikelComponent implements OnInit, OnDestroy {
 
-  constructor(private http: HttpClient, private _Activatedroute: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
+    route.params.subscribe(val => {
+      // put the code from `ngOnInit` here
+      this.subscription = this.route.paramMap.subscribe(params => { 
+        this.id = params.get('id');         
+    });
+      
+      if(this.id === undefined || this.id === null)
+        this.setArticleText(this.FIXED_ARTICLE_ID);
+      else
+        this.setArticleText(this.id);
+    });
+   }
 
   private subscription: Subscription;
   ngOnDestroy(): void {
@@ -34,19 +46,6 @@ export class ArtikelComponent implements OnInit, OnDestroy {
     articleName='';
 
   ngOnInit(): void {
-    this.subscription = this._Activatedroute.paramMap.subscribe(params => { 
-      this.id = params.get('id'); 
-      console.log("subscribe");
-      
-  });
-    console.log(this.id);
-    
-    if(this.id === undefined || this.id === null)
-      this.setArticleText(this.FIXED_ARTICLE_ID);
-    else
-      this.setArticleText(this.id);
-    
-    
   }
 
   setArticleText(id : string){
