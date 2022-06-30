@@ -5,6 +5,8 @@ import {NavItems} from '../dataclasses';
 import { ActivatedRoute } from '@angular/router';
 
 import { AppSettings } from 'src/app/app.config';
+import { MatDialog } from '@angular/material/dialog';
+import { CategoriesDialogComponent } from '../categories-dialog/categories-dialog.component';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -17,7 +19,7 @@ export class SidebarComponent implements OnInit {
   test: any;
   path = AppSettings.API_ENDPOINT + 'categories';
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient,public dialog: MatDialog) { 
     
   }
 
@@ -50,5 +52,23 @@ export class SidebarComponent implements OnInit {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(CategoriesDialogComponent, {
+      data: this.categories
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result.operation == 'create'){
+        var newCategoy = {
+          kategorie: result.value,
+        }
+        this.http.post(this.path,newCategoy).pipe(catchError(this.handleError)).subscribe((data) =>  {console.log(data)})
+      }
+
+      if(result.operation == 'delete'){
+        this.http.delete(this.path+"/"+result.value).pipe(catchError(this.handleError)).subscribe((data) =>  {console.log(data)})
+      }
+    });
+  }
 }
