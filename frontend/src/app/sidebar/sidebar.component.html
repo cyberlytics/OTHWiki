@@ -1,8 +1,6 @@
 <div class="sidebar">
   <div class="logo">
-    <a href="/"
-      ><img src="../../assets/oth-wiki.svg" alt="logo"
-    /></a>
+    <a [routerLink]="['/artikel']"><img src="../../assets/oth-wiki.svg" alt="logo"/></a>
   </div>
   
   <mat-divider></mat-divider>
@@ -17,7 +15,7 @@
           <ul>
             <!-- Iteriert durch alle zugehörigen Artikel -->
             <li *ngFor="let Artikel of Kategorie.artikel; let z = index">
-              <div>{{Artikel.artikel_name}}</div>
+              <a [routerLink]="['/artikel/', Artikel.artikel_id]">{{Artikel.artikel_name}}</a>
             </li>
           </ul>
           
@@ -29,7 +27,7 @@
                 <ul>
                   <!-- Iteriert durch alle Artikel der 1. Subkategorien -->
                   <li *ngFor="let Subkategorieartikel of Subkategorie.artikel; let x = index">
-                    <div>{{Subkategorieartikel.artikel_name}}</div>
+                    <a [routerLink]="['/artikel/', Subkategorieartikel.artikel_id]">{{Subkategorieartikel.artikel_name}}</a>
                   </li>
                 </ul>
                   <!-- Iteriert durch alle 2. Subkategorien -->
@@ -39,7 +37,7 @@
                       <ul>
                         <!-- Iteriert durch alle Artikel der 2. Subkategorien -->
                         <li *ngFor="let Subkategorie1artikel of Subkategorie1.artikel; let x = index">
-                          <div>{{Subkategorie1artikel.artikel_name}}</div>
+                          <a [routerLink]="['/artikel/', Subkategorie1artikel.artikel_id]">{{Subkategorie1artikel.artikel_name}}</a>
                           <!-- möglichkeit gleich link mit artikel id einzubinden? -->
                           <!-- oth-wiki.de/article/[Subkategorie1artikel.artikel_id] -->
                         </li>
