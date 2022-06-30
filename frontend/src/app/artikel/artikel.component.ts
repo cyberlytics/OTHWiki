@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, Subscription, throwError } from 'rxjs';
-import { Article, updateArticle, OldVersions } from '../dataclasses';
+import { Article} from '../dataclasses';
 
 import { AppSettings } from 'src/app/app.config';
 
@@ -37,16 +37,12 @@ export class ArtikelComponent implements OnInit, OnDestroy {
     this.subscription = this._Activatedroute.paramMap.subscribe(params => { 
       this.id = params.get('id'); 
       console.log("subscribe");
-      
+      console.log(this.id);
+      if(this.id === undefined || this.id === null)
+        this.setArticleText(this.FIXED_ARTICLE_ID);
+      else
+        this.setArticleText(this.id);
   });
-    console.log(this.id);
-    
-    if(this.id === undefined || this.id === null)
-      this.setArticleText(this.FIXED_ARTICLE_ID);
-    else
-      this.setArticleText(this.id);
-    
-    
   }
 
   setArticleText(id : string){

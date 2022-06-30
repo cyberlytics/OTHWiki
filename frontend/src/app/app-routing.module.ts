@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'artikel/:id', component: ArtikelComponent},
   { path: 'artikel', component: ArtikelComponent},
   { path: 'new_artikel', component: EditorComponent},
-  { path: 'edit', component: EditorComponent}
+  { path: 'edit', component: EditorComponent},
+  { path: 'edit/:id', component: EditorComponent}
   //{ path: 'artikel', component: ArtikelComponent}
 ]
 
