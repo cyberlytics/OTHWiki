@@ -23,6 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import {MatChipsModule} from '@angular/material/chips';
+import { RouterModule } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
 
 
@@ -55,6 +56,7 @@ import {MatSelectModule} from '@angular/material/select';
     NoopAnimationsModule,
     MdbCollapseModule,  
     MatChipsModule,
+    RouterModule,
     MatSelectModule
   ],
   providers: [],

@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, Subscription, throwError } from 'rxjs';
 import { Article, updateArticle, OldVersions } from '../dataclasses';
 
 import { AppSettings } from 'src/app/app.config';
@@ -11,13 +12,21 @@ import { AppSettings } from 'src/app/app.config';
   styleUrls: ['./artikel.component.css'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class ArtikelComponent implements OnInit {
+export class ArtikelComponent implements OnInit, OnDestroy {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _Activatedroute: ActivatedRoute) { }
+
+  private subscription: Subscription;
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    console.log("unsubscribe");
+    
+  }
 
     //TODO: Needs to be changed for real ArticleID
     FIXED_ARTICLE_ID = "62b0c1170dca46091d7de084"
     FIXED_TAGS = ["Testing"]
+    id: any;
 
     path = AppSettings.API_ENDPOINT;
 
@@ -25,7 +34,19 @@ export class ArtikelComponent implements OnInit {
     articleName='';
 
   ngOnInit(): void {
-    this.setArticleText(this.FIXED_ARTICLE_ID);
+    this.subscription = this._Activatedroute.paramMap.subscribe(params => { 
+      this.id = params.get('id'); 
+      console.log("subscribe");
+      
+  });
+    console.log(this.id);
+    
+    if(this.id === undefined || this.id === null)
+      this.setArticleText(this.FIXED_ARTICLE_ID);
+    else
+      this.setArticleText(this.id);
+    
+    
   }
 
   setArticleText(id : string){

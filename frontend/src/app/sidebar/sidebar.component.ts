@@ -2,6 +2,8 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
 import { catchError, throwError } from 'rxjs';
 import {NavItems} from '../dataclasses';
+import { ActivatedRoute } from '@angular/router';
+
 import { AppSettings } from 'src/app/app.config';
 @Component({
   selector: 'app-sidebar',
@@ -47,4 +49,6 @@ export class SidebarComponent implements OnInit {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
+
+
 }

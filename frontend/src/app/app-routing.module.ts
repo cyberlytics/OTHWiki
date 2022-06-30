@@ -5,9 +5,11 @@ import { ArtikelComponent } from './artikel/artikel.component';
 
 const routes: Routes = [ 
   { path: '', component: ArtikelComponent},
+  { path: 'artikel/:id', component: ArtikelComponent},
   { path: 'artikel', component: ArtikelComponent},
   { path: 'new_artikel', component: EditorComponent},
   { path: 'edit', component: EditorComponent}
+  //{ path: 'artikel', component: ArtikelComponent}
 ]
 
 @NgModule({
