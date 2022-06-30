@@ -160,6 +160,7 @@ export class EditorComponent implements OnInit {
   postUpdateArticle(update: updateArticle) {
     return this.http.post<updateArticle>(this.path + "articles/update", update).pipe(catchError(this.handleError))
       .subscribe((res) => {
+        this.router.navigateByUrl('/artikel/'+this.id);
       })
   }
 
@@ -190,8 +191,11 @@ export class EditorComponent implements OnInit {
   }
 
   postNewArticle(art: Article) {
-    return this.http.post<Article>(this.path + "articles", art).pipe(catchError(this.handleError))
+    return this.http.post<string>(this.path + "articles", art).pipe(catchError(this.handleError))
       .subscribe((res) => {
+        this.id = res;
+        console.log("NEUE ID:",this.id)
+        this.router.navigateByUrl('/artikel/'+this.id);
       })
     }
 
