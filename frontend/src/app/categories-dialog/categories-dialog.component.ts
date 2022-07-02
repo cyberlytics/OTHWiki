@@ -13,7 +13,10 @@ export class CategoriesDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: NavItems[], private dialogRef: MatDialogRef<CategoriesDialogComponent>) { }
 
   categoriesList: Cat[];
+  parentCategoriesList: Cat[];
   selectedValue: string;
+  selectedValueParent: string;
+
   hideDropdown: boolean = true;
   hideFormField: boolean = false;
   newCategoryName: string;
@@ -48,16 +51,25 @@ export class CategoriesDialogComponent implements OnInit {
   }
 
   Submit(){
-    console.log("Submit")
-    console.log("Selected: ",this.newCategoryName)
     if(!this.hideDropdown){
       this.dialogRef.close({operation: 'delete', value: this.selectedValue});
     }else if(this.newCategoryName != null && !(this.newCategoryName === undefined)){
-      this.dialogRef.close({operation: 'create', value: this.newCategoryName})
+      this.dialogRef.close({operation: 'create', value: this.newCategoryName, parent: this.selectedValueParent})
     }
   }
 
   KategorieUpdated(event: any){
     this.newCategoryName = event.target.value
+    console.log(event.target.value)
+  }
+
+  change(action: any){
+    if(action == "create"){
+      this.hideDropdown=true;
+      this.hideFormField=false;
+    }else if(action == "delete"){
+      this.hideDropdown=false;
+      this.hideFormField=true;
+    }
   }
 }

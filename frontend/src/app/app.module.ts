@@ -28,6 +28,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -53,6 +54,7 @@ import { MatInputModule } from '@angular/material/input';
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatIconModule,
     MatDividerModule,
     MatFormFieldModule,
