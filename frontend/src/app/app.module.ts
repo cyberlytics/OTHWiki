@@ -25,6 +25,7 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import {MatChipsModule} from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
+import {SidebarArtikelComponent} from './sidebar-artikel/sidebar-artikel.component';
 
 
 
@@ -38,6 +39,7 @@ import {MatSelectModule} from '@angular/material/select';
     HeaderComponent,
     rountingComponents,
     ScrollToTopComponent,
+    SidebarArtikelComponent,
   ],
   imports: [
     BrowserModule,
