@@ -9,7 +9,7 @@ import { EDITOR_ROUTES } from './route/route-editor.module';
 
 
 const routes: Routes = [ 
-  { path: '', component: SidebarArtikelComponent},
+  { path: '', component: ArtikelComponent},
   { path: 'artikel', component: SidebarArtikelComponent, children: ARTIKEL_ROUTES},
   { path: 'artikel', component: ArtikelComponent},
   { path: 'new_artikel', component: SidebarArtikelComponent, children: ARTIKEL_ROUTES},
