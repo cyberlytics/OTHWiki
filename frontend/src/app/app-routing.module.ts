@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', component: ArtikelComponent},
   { path: 'artikel', component: SidebarArtikelComponent, children: ARTIKEL_ROUTES},
   { path: 'artikel', component: ArtikelComponent},
-  { path: 'new_artikel', component: SidebarArtikelComponent, children: ARTIKEL_ROUTES},
+  { path: 'new_artikel', component: SidebarArtikelComponent, children: EDITOR_ROUTES},
   { path: 'edit', component: SidebarArtikelComponent, children: EDITOR_ROUTES},
   { path: 'edit/:id', component: SidebarArtikelComponent, children: EDITOR_ROUTES}
   //{ path: 'artikel', component: ArtikelComponent}
