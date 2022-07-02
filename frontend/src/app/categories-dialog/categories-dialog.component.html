@@ -4,7 +4,7 @@
 <button class="btn-outline-primary btn editor-btn" (click)="DeleteButtonClick()">
     Kategorie löschen
 </button> -->
-Aktion Auswählen
+<p>Aktion Auswählen</p>
 <p>
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (change)="change($event.value)">
       <mat-button-toggle value="create">Hinzufügen</mat-button-toggle>
@@ -12,6 +12,7 @@ Aktion Auswählen
     </mat-button-toggle-group>
   </p>
 <mat-dialog-content>
+
     <form [hidden]="hideDropdown">
         <h4>Kategorie</h4>
         <mat-form-field appearance="fill">
@@ -40,9 +41,9 @@ Aktion Auswählen
             </mat-select>
         </mat-form-field>
     </form>
-
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Abbrechen</button>
     <button mat-button mat-dialog-close cdkFocusInitial (click)="Submit()">Bestätigen</button>
 </mat-dialog-actions>
+
