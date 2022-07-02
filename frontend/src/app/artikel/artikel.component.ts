@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, Subscription, throwError } from 'rxjs';
-import { Article, updateArticle, OldVersions } from '../dataclasses';
+import { Article} from '../dataclasses';
 
 import { AppSettings } from 'src/app/app.config';
 

@@ -63,7 +63,7 @@ async def create_new_article(body: Article):
                                 article_name = body.artikel_name,
                                 cat_id = body.kategorie)
     
-    return f'Article was created successfully with ID {obj.inserted_id}'
+    return f'{obj.inserted_id}'
 
 
 @router_article.post('/articles/update', tags=["Artikel"])
