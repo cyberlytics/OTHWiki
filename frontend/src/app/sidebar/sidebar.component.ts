@@ -60,8 +60,12 @@ export class SidebarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if(result.operation == 'create'){
+        if(result.parent === undefined){
+          result.parent = null;
+        }
         var newCategoy = {
           kategorie: result.value,
+          parent_kategorie: result.parent
         }
         this.http.post(this.path,newCategoy).pipe(catchError(this.handleError)).subscribe((data) =>  {console.log(data)})
       }
