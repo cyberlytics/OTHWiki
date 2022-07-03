@@ -9,7 +9,6 @@ export class HeaderComponent implements OnInit {
 
   public menuActive: boolean = false;
   public getScreenWidth: any;
-  public getScreenHeight: any;
 
   @ViewChild('myDiv', { read: ElementRef, static: false }) myDiv!: ElementRef;
 
@@ -17,13 +16,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getScreenWidth = window.innerWidth;
-    this.getScreenHeight = window.innerHeight;
   }
 
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
+  /**
+   * Wenn in der Mobilen Ansicht das Menü ausgelöst wird und der Benutzer seine Fenstergröße
+   * vergrößert, wird das Menü in der Mobilen Ansicht geschlossen.
+   */
+  @HostListener('window:resize', ['$event']) onWindowResize() {
     this.getScreenWidth = window.innerWidth;
-    this.getScreenHeight = window.innerHeight;
 
     if (this.menuActive == true) {
       if (this.getScreenWidth > 993) {
@@ -34,6 +34,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * Merkt sich ob in der Mobilen Ansicht das Menü ausgelöst wurde.
+   */
   menuClick() {
     if (this.menuActive == false) {
       this.menuActive = true;
@@ -43,6 +46,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * @param value Eingabewert
+   * @returns 
+   */
   submitSearch(value: string) {
     console.log(value);
   }

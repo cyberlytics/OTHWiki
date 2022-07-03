@@ -30,10 +30,11 @@ export class SidebarComponent implements OnInit {
   loadNavItems(){
     this.http.get<NavItems[]>(this.path).pipe(catchError(this.handleError)).subscribe((data) =>  {
       this.categories = data;
-      console.log("##########################################");
+    /*  console.log("##########################################");
       console.log(data)
       console.log(this.categories)
       console.log("##########################################");
+      */
     });
     
   }

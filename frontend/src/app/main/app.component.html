@@ -2,38 +2,7 @@
 
   <app-scroll-to-top></app-scroll-to-top>
 
-
-  <!-- Toolbar (Header)  --> 
-  <mat-toolbar style="height:auto">
-    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
-      <mat-icon *ngIf="!sidenav.opened">
-        home
-      </mat-icon>
-      <mat-icon *ngIf="sidenav.opened">
-        close
-      </mat-icon>
-    </button>
-    <app-header style="width: 100%"></app-header>
-  </mat-toolbar>
-
-
-
-
-  <!--  --> 
-  <mat-sidenav-container>
-    <mat-sidenav mode="side" class="mat-elevation-z8" #sidenav="matSidenav">
-<app-sidebar></app-sidebar>
-    </mat-sidenav>
-
-    <!--  --> 
-    <mat-sidenav-content>
-      <div class="content mat-elevation-z8">
-        <!-- <app-artikel></app-artikel> -->
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-
+    <router-outlet></router-outlet>
 
   <app-footer></app-footer>
 

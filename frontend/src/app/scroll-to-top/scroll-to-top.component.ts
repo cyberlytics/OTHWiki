@@ -6,13 +6,16 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './scroll-to-top.component.html',
   styleUrls: ['./scroll-to-top.component.css']
 })
-export class ScrollToTopComponent implements OnInit {
+export class ScrollToTopComponent {
   windowScrolled: boolean;
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.windowScrolled = true;
    }
-  @HostListener("window:scroll", [])
-  onWindowScroll() {
+
+  /**
+   * Beim runter scrollen wird der scroll-to-top Button sichtbar. Wenn der Benutzer
+   */
+  @HostListener("window:scroll", []) onWindowScroll() {    
     if (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
       this.windowScrolled = true;
     }
@@ -20,6 +23,11 @@ export class ScrollToTopComponent implements OnInit {
       this.windowScrolled = false;
     }
   }
+
+  /**
+   * Beim auslösen des scroll-to-top Buttons wird der Benutzer an den Anfang der Webseite 
+   * hochgescrollt.
+   */
   scrollToTop() {    
     (function smoothscroll() {
       var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
@@ -29,10 +37,6 @@ export class ScrollToTopComponent implements OnInit {
       }
     })();
   }
-
-  ngOnInit(): void {
-  }
-
 }
 
 

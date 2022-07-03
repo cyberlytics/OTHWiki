@@ -46,6 +46,16 @@ export class ArtikelComponent implements OnInit, OnDestroy {
     articleName='';
 
   ngOnInit(): void {
+    this.subscription = this.route.paramMap.subscribe(params => { 
+      this.id = params.get('id');     
+      console.log('subscribe');
+          
+  });
+    
+    if(this.id === undefined || this.id === null)
+      this.setArticleText(this.FIXED_ARTICLE_ID);
+    else
+      this.setArticleText(this.id);
   }
 
   setArticleText(id : string){

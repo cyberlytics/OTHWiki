@@ -25,6 +25,7 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import {MatChipsModule} from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
+import {SidebarArtikelComponent} from './sidebar-artikel/sidebar-artikel.component';
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
@@ -42,6 +43,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     HeaderComponent,
     rountingComponents,
     ScrollToTopComponent,
+    SidebarArtikelComponent,
     CategoriesDialogComponent,
   ],
   imports: [

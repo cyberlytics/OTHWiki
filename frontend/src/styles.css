@@ -4,10 +4,11 @@ body {
 	background-color: #f6f6f6 !important;
 	margin: 0
 }
+
 html,
 body {
 	height: 100%;
-    background-color: #F6F6F6;
+	background-color: #F6F6F6;
 
 }
 
@@ -18,6 +19,17 @@ body {
 img {
 	width: 100%;
 	padding: 20px 0;
+}
+
+button:focus-visible {
+	outline: none !important;
+
+}
+
+h1:focus-visible {
+	outline: 2px solid orange !important;
+	border-bottom: 0 !important;
+	padding: 12px !important;
 }
 
 
@@ -49,12 +61,12 @@ p {
 	font-size: 0.9rem;
 }
 
-.ql-toolbar.ql-snow + .ql-container.ql-snow {
+.ql-toolbar.ql-snow+.ql-container.ql-snow {
 	padding: 10px 0px;
-  }
+}
 
-  .ql-editor.ql-blank::before {
-	color: rgba(0,0,0,0.6);
+.ql-editor.ql-blank::before {
+	color: rgba(0, 0, 0, 0.6);
 	content: "Text hier einfügen" !important;
 	font-style: italic;
 	left: 15px;
@@ -62,50 +74,57 @@ p {
 	position: absolute;
 	right: 15px;
 	padding: 4px 14px;
-  }
-  
+}
+
 
 .ql-editor {
 	padding: 10px 30px 30px 30px !important;
 }
 
+.mat-form-field-appearance-outline .mat-form-field-flex {
+	margin-top: 15px !important;
+}
 
-  .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline {
+.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline {
 	color: #002B5C;
-  }
+}
 
-  .mat-sidenav {
+.mat-sidenav {
 	margin: 16px 16px 36px 16px !important;
 }
 
-.mat-toolbar-row, .mat-toolbar-single-row {
-    white-space: nowrap;
-    flex-wrap: wrap;
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+	white-space: nowrap;
+	flex-wrap: wrap;
 }
 
-.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
-    top: 54px;
-    z-index: 10;
+.mat-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button {
+	top: 54px;
+	z-index: 10;
 }
 
 
-  .mat-form-field.mat-focused .mat-form-field-label {
-    color: #F29400 !important;
+.mat-form-field.mat-focused .mat-form-field-label {
+	color: #F29400 !important;
 }
 
 .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: #F29400 !important;
+	color: #F29400 !important;
 }
 
 
-  .mat-chip.mat-standard-chip {
+.mat-chip.mat-standard-chip {
 	background-color: #EDEDED;
-  }
+}
 
 
-  .mat-focus-indicator::before {
-border: none;
-  }
+.mat-focus-indicator::before {
+	border: none;
+}
 
 
 
@@ -150,17 +169,17 @@ border: none;
 	display: none;
 }
 
-.ql-picker-item[data-value='1']{
+.ql-picker-item[data-value='1'] {
 	font-family: 'Times New Roman';
 	line-height: 1.3;
 	margin-bottom: 0.25em;
 	padding: 0;
 	letter-spacing: 0;
 	font-size: 1em;
-	border-bottom: 1px solid #F29400;	
+	border-bottom: 1px solid #F29400;
 }
 
-.ql-picker-item[data-value='2']{
+.ql-picker-item[data-value='2'] {
 	font-family: 'Times New Roman';
 	font-size: 1em;
 	margin: 0.5em 0 0.5em 0;
@@ -169,7 +188,7 @@ border: none;
 	padding-bottom: 0em;
 }
 
-.ql-picker-item[data-value='3']{
+.ql-picker-item[data-value='3'] {
 	font-family: 'Times New Roman';
 	margin: 15px 0px 10px 0px;
 	font-weight: bold;
@@ -209,24 +228,24 @@ border: none;
 .ql-toolbar.ql-snow {
 	border: 2px solid #ccc;
 	border-radius: 5px;
-  }
+}
 
-  .ql-container.ql-snow {
+.ql-container.ql-snow {
 	border: 2px solid #ccc;
 	border-radius: 5px;
-  }
+}
 
-  .ql-align-center{
+.ql-align-center {
 	text-align: center;
-  }
+}
 
-  .ql-align-right{
+.ql-align-right {
 	text-align: right;
-  }
+}
 
-  .ql-align-justify{
+.ql-align-justify {
 	text-align: justify;
-  }
+}
 
 
 .ql-snow.ql-toolbar button:hover,
