@@ -6,10 +6,11 @@ import { SidebarArtikelComponent } from './sidebar-artikel/sidebar-artikel.compo
 import { AppComponent } from './main/app.component';
 import { ARTIKEL_ROUTES } from './route/route.module';
 import { EDITOR_ROUTES } from './route/route-editor.module';
+import { HOME } from './route/route-editor.module copy';
 
 
 const routes: Routes = [ 
-  { path: '', component: ArtikelComponent},
+  { path: '', component: SidebarArtikelComponent, children: HOME},
   { path: 'artikel', component: SidebarArtikelComponent, children: ARTIKEL_ROUTES},
   { path: 'artikel', component: ArtikelComponent},
   { path: 'new_artikel', component: SidebarArtikelComponent, children: EDITOR_ROUTES},
