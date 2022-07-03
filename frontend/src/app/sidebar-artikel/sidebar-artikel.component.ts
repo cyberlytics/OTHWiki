@@ -15,9 +15,11 @@ export class SidebarArtikelComponent {
 
   constructor(private observer: BreakpointObserver){
   }
-
   
-
+  /**
+   * Bei einer Breite von 800px wird die Sidebar geschlossen. Beim ausläsen des Home-Buttons
+   * wird die Sidebar auf der linken Seite eingeschoben.
+   */
   ngAfterViewInit(){
     this.observer.observe(['(max-width: 800px)']).subscribe((res) =>  {
       if(res.matches){
