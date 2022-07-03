@@ -7,7 +7,7 @@ services:
     container_name: mongodb
     #The Mongo-DB-Ports just need to be opened, when you run the backend app on localhost instead inside docker network
     ports:
-      - 27017:27017
+      - "27017:27017"
     #Define the Path to mount the Data of Database
     #volumes:
     #  - /data/mongodb:/data/db

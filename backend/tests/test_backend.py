@@ -177,8 +177,7 @@ def test_insert_update_and_delete_article():
     article_data['kategorie'] = category_id
     response = client.post('/articles', json =article_data)
     assert response.status_code == 200
-    assert response.json().startswith("Article was created successfully with ID ")
-    article_id = response.json().replace("Article was created successfully with ID ","")
+    article_id = response.json()
 
     #check that article is included in the category
     response = client.get(f'/categories/{category_id}')

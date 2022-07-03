@@ -1,0 +1,49 @@
+<!-- <button class="btn-outline-primary btn editor-btn" (click)="CreateButtonClick()">
+    Kategorie erstllen
+</button>
+<button class="btn-outline-primary btn editor-btn" (click)="DeleteButtonClick()">
+    Kategorie löschen
+</button> -->
+<p>Aktion Auswählen</p>
+<p>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (change)="change($event.value)">
+      <mat-button-toggle value="create">Hinzufügen</mat-button-toggle>
+      <mat-button-toggle value="delete">Löschen</mat-button-toggle>
+    </mat-button-toggle-group>
+  </p>
+<mat-dialog-content>
+
+    <form [hidden]="hideDropdown">
+        <h4>Kategorie</h4>
+        <mat-form-field appearance="fill">
+            <mat-label>Artikel Kategorie</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="cat">
+                <mat-option *ngFor="let cat of categoriesList" [value]="cat.value">
+                    {{ cat.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+    <form [hidden] = "hideFormField">
+        <h4>Kategorie Name</h4>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Kategorie Name</mat-label>
+            <input matInput placeholder="z.B. Kategorie 1" (change)="KategorieUpdated($event)">
+        </mat-form-field>
+        <h4>Überkategorie</h4>
+        <mat-form-field appearance="fill">
+            <mat-label>Artikel Kategorie</mat-label>
+            <mat-select [(ngModel)]="selectedValueParent" name="cat">
+                <mat-option *ngFor="let cat of categoriesList" [value]="cat.value">
+                    {{ cat.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Abbrechen</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="Submit()">Bestätigen</button>
+</mat-dialog-actions>
+

@@ -14,7 +14,7 @@ import { AppSettings } from 'src/app/app.config';
 export interface TagItem {
   name: string;
 }
-interface Cat {
+export interface Cat {
   value: string;
   viewValue: string;
 }
@@ -127,6 +127,7 @@ export class EditorComponent implements OnInit {
    */
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     this.editorText = event['editor']['root']['innerHTML'];
+    console.log(this.editorText);
   }
 
 //prevents making new lines in the title
@@ -295,7 +296,7 @@ export class EditorComponent implements OnInit {
 
       // ['clean'],                                         // remove formatting button
 
-      // ['link', 'image', 'video']                         // link and image, video
+      ['link', 'image', 'video']                         // link and image, video
     ],
   };
 }
