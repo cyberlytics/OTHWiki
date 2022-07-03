@@ -1,9 +1,7 @@
 import { Routes } from "@angular/router";
 import { ArtikelComponent } from '../artikel/artikel.component';
-import { EditorComponent } from "../editor/editor.component";
 
-
-export const HOME: Routes = [
+export const HOME_ROUTES: Routes = [
   {path: '', component: ArtikelComponent}
 ];
 
