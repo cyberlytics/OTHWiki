@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NavItems } from '../dataclasses';
 import { Cat } from '../editor/editor.component';
 
@@ -10,7 +11,9 @@ import { Cat } from '../editor/editor.component';
 })
 export class CategoriesDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: NavItems[], private dialogRef: MatDialogRef<CategoriesDialogComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: NavItems[], 
+  private dialogRef: MatDialogRef<CategoriesDialogComponent>,
+  private router:Router) { }
 
   categoriesList: Cat[];
   parentCategoriesList: Cat[];
@@ -56,7 +59,15 @@ export class CategoriesDialogComponent implements OnInit {
     }else if(this.newCategoryName != null && !(this.newCategoryName === undefined)){
       this.dialogRef.close({operation: 'create', value: this.newCategoryName, parent: this.selectedValueParent})
     }
+    this.reloadCurrentRoute();
   }
+
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
 
   KategorieUpdated(event: any){
     this.newCategoryName = event.target.value
@@ -64,10 +75,10 @@ export class CategoriesDialogComponent implements OnInit {
   }
 
   change(action: any){
-    if(action == "create"){
+    if(action.index == 0){
       this.hideDropdown=true;
       this.hideFormField=false;
-    }else if(action == "delete"){
+    }else if(action.index == 1){
       this.hideDropdown=false;
       this.hideFormField=true;
     }

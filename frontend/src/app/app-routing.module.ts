@@ -6,6 +6,7 @@ import { SidebarArtikelComponent } from './sidebar-artikel/sidebar-artikel.compo
 import { ARTIKEL_ROUTES } from './route/route.module';
 import { EDITOR_ROUTES } from './route/route-editor.module';
 import { HOME_ROUTES } from './route/route-home.module';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 const routes: Routes = [ 
