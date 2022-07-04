@@ -30,7 +30,7 @@ import { CategoriesDialogComponent } from './categories-dialog/categories-dialog
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -68,6 +68,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     RouterModule,
     MatSelectModule,
     MatDialogModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

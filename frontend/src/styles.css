@@ -81,6 +81,24 @@ p {
 	padding: 10px 30px 30px 30px !important;
 }
 
+.mat-dialog-content {
+	display: contents !important;
+  }
+
+.mat-dialog-actions {
+	margin-bottom: 0 !important;
+  }
+
+  .mat-dialog-container {
+	padding: 35px 35px 15px 35px !important;
+
+	overflow: hidden !important;
+  }
+
+  .mat-button{
+	  position: sticky !important;
+  }
+
 .mat-form-field-appearance-outline .mat-form-field-flex {
 	margin-top: 15px !important;
 }
@@ -93,11 +111,34 @@ p {
 	margin: 16px 16px 36px 16px !important;
 }
 
+.mat-focused .mat-form-field-label {
+	/*change color of label*/
+	color: #F29400 !important;
+   }
+  
+.mat-form-field-underline {
+	/*change color of underline*/
+	background-color: #F29400 !important;
+  } 
+  
+.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: #F29400 !important;
+  }
+
+  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #F29400;
+}
+
 .mat-toolbar-row,
 .mat-toolbar-single-row {
 	white-space: nowrap;
 	flex-wrap: wrap;
 }
+
+.mat-h4, .mat-subheading-1, .mat-typography .mat-h4, .mat-typography .mat-subheading-1, .mat-typography h4 {
+	margin: 10px 0px !important;
+  }
 
 .mat-button,
 .mat-icon-button,
