@@ -59,7 +59,6 @@ export class CategoriesDialogComponent implements OnInit {
     }else if(this.newCategoryName != null && !(this.newCategoryName === undefined)){
       this.dialogRef.close({operation: 'create', value: this.newCategoryName, parent: this.selectedValueParent})
     }
-    this.reloadCurrentRoute();
   }
 
   reloadCurrentRoute() {
